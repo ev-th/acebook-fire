@@ -198,4 +198,30 @@ describe("/users", () => {
       expect(users.length).toEqual(1)
     });
   })
+  describe("POST, when we already have the same username in the database", () => {
+
+    test("only creates 1", async () => {
+      await request(app)
+        .post("/users")
+        .send({
+          email: "scarlett@email.com",
+          password: "1234",
+          firstName: "Scarlett",
+          lastName: "Scarlettson",
+          userName: "scat",
+        });
+      await request(app)
+        .post("/users")
+        .send({
+          email: "scarlett1@email.com",
+          password: "1234",
+          firstName: "Scarlett",
+          lastName: "Scarlettson",
+          userName: "scat",
+        });
+
+        let users = await User.find()
+      expect(users.length).toEqual(1)
+    });
+  })
 })
