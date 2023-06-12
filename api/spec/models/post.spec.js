@@ -1,7 +1,12 @@
 var mongoose = require("mongoose");
+const { ObjectId } = require('mongoose').Types;
+
 
 require("../mongodb_helper");
-var Post = require("../../models/post");
+const Post = require("../../models/post");
+const User = require("../../models/user");
+
+jest.mock('../../models/user'); // Mocking the User model
 
 describe("Post model", () => {
   beforeEach((done) => {
@@ -11,7 +16,7 @@ describe("Post model", () => {
   });
 
   it("has a message", () => {
-    var post = new Post({ newPost: "some message" });
+    let post = new Post({ newPost: "some message" });
     expect(post.newPost).toEqual("some message");
   });
 
@@ -24,17 +29,30 @@ describe("Post model", () => {
   });
 
   it("can save a post", (done) => {
-    var post = new Post({ newPost: "some message" });
-
+    const mockUser = new User({
+      //_id: new ObjectId(),
+      _id: new ObjectId("64872986970ff858dba1b795"),
+      email: "scarlett@email.com",
+      password: "$2b$10$ckiMnkRjw4EzwNXL53PUYevcSPdw38rrRIkFWkbSKKNQc2wpgodfm",
+      firstName: "Scarlett",
+      lastName: "Scarlettson",
+      userName: "scat"
+    });
+  
+    User.findById.mockResolvedValue(mockUser); // Mocking the User.findById method
+    
+    const post = new Post({ newPost: "some message", user: mockUser._id });
+    console.log(post);
     post.save((err) => {
       expect(err).toBeNull();
 
       Post.find((err, posts) => {
-        expect(err).toBeNull();
-
-        expect(posts[0]).toMatchObject({ newPost: "some message" });
-        done();
+      expect(err).toBeNull();
+      expect(posts[-1]).toMatchObject({
+         newPost: "some message", 
+         user: mockUser._id 
       });
+      done();});
     });
   });
 });
