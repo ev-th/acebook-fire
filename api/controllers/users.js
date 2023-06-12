@@ -3,9 +3,22 @@ const User = require("../models/user");
 const UsersController = {
   Create: (req, res) => {
     const { email } = req.body;
+    const { userName } = req.body;
+    User.findOne({ userName }, (err, existingUser) => {
+      if (err) {
+        // Handle any database error
+        return res.status(500).json({ message: 'Internal Server Error' });
+      }
+
+      if (existingUser) {
+        // Email already exists, return an error message
+        console.log(err)
+        return res.status(402).json({ message: 'userName already in use' });
+      }
 
     // Check if the email already exists in the database
     User.findOne({ email }, (err, existingUser) => {
+      
       if (err) {
         // Handle any database error
         return res.status(500).json({ message: 'Internal Server Error' });
@@ -27,6 +40,7 @@ const UsersController = {
         // User successfully created
         return res.status(201).json({ message: 'User created' });
       });
+    });
     });
   },
 };
