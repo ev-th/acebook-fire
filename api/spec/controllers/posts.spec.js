@@ -7,10 +7,11 @@ const JWT = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET;
 
 let token;
+let user;
 
 describe("/posts", () => {
   beforeAll( async () => {
-    const user = new User({
+    user = new User({
       email: "test@test.com",
       password: "12345678",
       firstName: "Test",
@@ -42,7 +43,7 @@ describe("/posts", () => {
       let response = await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ newPost: "hello world", token: token });
+        .send({ newPost: "hello world", userId: user._id, token: token });
       expect(response.status).toEqual(201);
     });
   
@@ -50,17 +51,18 @@ describe("/posts", () => {
       await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({newPost: "hello world", token: token });
+        .send({newPost: "hello world", userId: user._id, token: token });
       let posts = await Post.find();
       expect(posts.length).toEqual(1);
       expect(posts[0].newPost).toEqual("hello world");
+      expect(posts[0].userId).toEqual(user._id);
     });
   
     test("returns a new token", async () => {
       let response = await request(app)
         .post("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({newPost: "hello world", token: token });
+        .send({newPost: "hello world", userId: user._id, token: token });
       let newPayload = JWT.decode(response.body.token, process.env.JWT_SECRET);
       let originalPayload = JWT.decode(token, process.env.JWT_SECRET);
       expect(newPayload.iat > originalPayload.iat).toEqual(true);
@@ -93,23 +95,26 @@ describe("/posts", () => {
 
   describe("GET, when token is present", () => {
     test("returns every post in the collection", async () => {
-      let post1 = new Post({newPost: "howdy!"});
-      let post2 = new Post({newPost: "hola!"});
+      let post1 = new Post({newPost: "howdy!", userId: user._id});
+      let post2 = new Post({newPost: "hola!", userId: user._id});
       await post1.save();
       await post2.save();
       let response = await request(app)
         .get("/posts")
         .set("Authorization", `Bearer ${token}`)
         .send({token: token});
-
-      console.log(response.body);
+      
       let messages = response.body.posts.map((post) => ( post.newPost));
+      //console.log(messages[]);
       expect(messages).toEqual(["howdy!", "hola!"]);
+
+      let messageId = response.body.posts.map((post) => (post.userId));
+      expect(messageId).toEqual([user.id, user.id]);
     })
 
     test("the response code is 200", async () => {
-      let post1 = new Post({message: "howdy!"});
-      let post2 = new Post({message: "hola!"});
+      let post1 = new Post({message: "howdy!", userId: user._id});
+      let post2 = new Post({message: "hola!", userId: user._id});
       await post1.save();
       await post2.save();
       let response = await request(app)
@@ -120,8 +125,8 @@ describe("/posts", () => {
     })
 
     test("returns a new token", async () => {
-      let post1 = new Post({message: "howdy!"});
-      let post2 = new Post({message: "hola!"});
+      let post1 = new Post({message: "howdy!", userId: user._id});
+      let post2 = new Post({message: "hola!", userId: user._id});
       await post1.save();
       await post2.save();
       let response = await request(app)
@@ -136,8 +141,8 @@ describe("/posts", () => {
 
   describe("GET, when token is missing", () => {
     test("returns no posts", async () => {
-      let post1 = new Post({message: "howdy!"});
-      let post2 = new Post({message: "hola!"});
+      let post1 = new Post({message: "howdy!", userId: user._id});
+      let post2 = new Post({message: "hola!", userId: user._id});
       await post1.save();
       await post2.save();
       let response = await request(app)
@@ -146,8 +151,8 @@ describe("/posts", () => {
     })
 
     test("the response code is 401", async () => {
-      let post1 = new Post({message: "howdy!"});
-      let post2 = new Post({message: "hola!"});
+      let post1 = new Post({message: "howdy!", userId: user._id});
+      let post2 = new Post({message: "hola!", userId: user._id});
       await post1.save();
       await post2.save();
       let response = await request(app)
@@ -156,8 +161,8 @@ describe("/posts", () => {
     })
 
     test("does not return a new token", async () => {
-      let post1 = new Post({message: "howdy!"});
-      let post2 = new Post({message: "hola!"});
+      let post1 = new Post({message: "howdy!", userId: user._id});
+      let post2 = new Post({message: "hola!", userId: user._id});
       await post1.save();
       await post2.save();
       let response = await request(app)
