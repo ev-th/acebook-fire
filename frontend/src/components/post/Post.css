@@ -1,0 +1,11 @@
+.post {
+    background: white;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    width: 90%;
+    padding: 10px;
+    margin: 8px;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+}

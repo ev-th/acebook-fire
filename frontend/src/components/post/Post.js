@@ -1,11 +1,16 @@
 import React from 'react';
+import './Post.css';
+
 
 const Post = ({post}) => {
   return(
-    <article data-cy="post" key={ post._id }>
-      { post.userName}
-      { post.lastName}
-      { post.newPost }</article>
+    <div className="post" data-cy="post" key={ post._id }>
+
+      <div>
+        <p>{post.firstName +" "+ post.lastName}</p> 
+        <p>{ post.newPost }</p>
+      </div>
+      </div>
   )
 }
 
