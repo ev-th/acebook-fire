@@ -1,7 +1,10 @@
 var mongoose = require("mongoose");
+const { ObjectId } = require('mongoose').Types;
+
 
 require("../mongodb_helper");
-var Post = require("../../models/post");
+const Post = require("../../models/post");
+const User = require("../../models/user");
 
 describe("Post model", () => {
   beforeEach((done) => {
@@ -11,7 +14,7 @@ describe("Post model", () => {
   });
 
   it("has a message", () => {
-    var post = new Post({ newPost: "some message" });
+    let post = new Post({ newPost: "some message" });
     expect(post.newPost).toEqual("some message");
   });
 
@@ -24,15 +27,25 @@ describe("Post model", () => {
   });
 
   it("can save a post", (done) => {
-    var post = new Post({ newPost: "some message" });
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+      firstName: "John",
+      lastName: "Smith",
+      userName: "js93",
+    });
 
+    const post = new Post({ newPost: "some message", userId: user._id });
+    console.log(post);
     post.save((err) => {
       expect(err).toBeNull();
 
       Post.find((err, posts) => {
         expect(err).toBeNull();
-
-        expect(posts[0]).toMatchObject({ newPost: "some message" });
+        expect(posts.slice(-1)[0]).toMatchObject({
+          newPost: "some message", 
+          userId: user._id
+        });
         done();
       });
     });
