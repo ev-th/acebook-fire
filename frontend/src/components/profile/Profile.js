@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../navbar/Navbar';
+import Navbar from "../navbar/Navbar"
 
 const Profile = ({ navigate, params }) => {
   const { username }  = params()
@@ -36,7 +36,7 @@ const Profile = ({ navigate, params }) => {
   if(token) {
     return (
       <>
-      <Navbar />
+      <Navbar navigate={ navigate }/>
       <div data-cy="profile">
         <button onClick={logout}>
           Logout
