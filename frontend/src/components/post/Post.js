@@ -4,6 +4,7 @@ const Post = ({post}) => {
   return(
     <article data-cy="post" key={ post._id }>
       { post.userName}
+      { post.lastName}
       { post.newPost }</article>
   )
 }
