@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
 import Navbar from '../navbar/Navbar';
+import jwtDecode from 'jwt-decode';
+
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [newPost, setNewPost] = useState("")
+  const [newPost, setNewPost] = useState("");
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     if(token) {
+      setUserID(jwtDecode(token).user_id);
       fetchPosts();
     } else {
       navigate('/login')
@@ -35,7 +39,8 @@ const Feed = ({ navigate }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        newPost: newPost
+        newPost: newPost,
+        userId: userID
       })
     })
   }
