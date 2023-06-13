@@ -31,7 +31,10 @@ const Profile = ({ navigate, params }) => {
         setLastName(data.user.lastName)
         setUserName(data.user.userName)
         });
-        fetchPosts()
+        fetchPosts().then(() => {
+          let filteredPosts = posts.filter(post => post.userId === userID);
+          setUserPosts(filteredPosts);
+        })
       }
     }, [])
     
@@ -52,11 +55,12 @@ const Profile = ({ navigate, params }) => {
       navigate('/login')
     }
 
-   const filteredPosts = posts.filter(post => post.userId === userID);
+   
   //  setUserPosts(filteredPosts);
 
-  console.log(filteredPosts)
+  // console.log(filteredPosts)
   console.log(userID)
+  // setPosts(filteredPosts);
 
     if(token) {
       return (
@@ -73,7 +77,7 @@ const Profile = ({ navigate, params }) => {
 
       <div id='feed' role="feed">
           {
-            posts.slice().reverse().map((post) => {
+            userPosts.slice().reverse().map((post) => {
               return <Post post={ post }/>
             })
           }
