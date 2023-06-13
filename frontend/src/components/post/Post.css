@@ -1,6 +1,7 @@
 .post {
     background: white;
-    box-shadow: 0 0 14px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgb(213, 210, 210);
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     width: 90%;
     padding: 10px;
@@ -10,4 +11,13 @@
     align-items: center;
     margin: 16px auto;
 
+}
+
+.name {
+    color: rgb(251, 76, 76);
+}
+
+.name:hover {
+    color: rgb(245, 169, 169);
+    cursor: pointer;
 }
