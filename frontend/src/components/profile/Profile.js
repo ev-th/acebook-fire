@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/Navbar';
+import Post from '../post/Post';
 
 const Profile = ({ navigate, params }) => {
   const { username }  = params()
@@ -8,6 +9,7 @@ const Profile = ({ navigate, params }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [posts, setPosts] = useState([]);
   
   useEffect(() => {
     if(token) {
@@ -24,9 +26,22 @@ const Profile = ({ navigate, params }) => {
         setFirstName(data.user.firstName)
         setLastName(data.user.lastName)
         setUserName(data.user.userName)
-        })
+        });
+        fetchPosts()
     }
   }, [])
+
+  const fetchPosts = async () => {
+    const response = await fetch("/posts", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    const data = await response.json();
+    window.localStorage.setItem("token", data.token);
+    setToken(window.localStorage.getItem("token"));
+    setPosts(data.posts);
+}
 
   const logout = () => {
     window.localStorage.removeItem("token")
@@ -44,6 +59,14 @@ const Profile = ({ navigate, params }) => {
         <h2>Profile Page</h2>
         <h3>Name: {`${firstName} ${lastName}`}</h3>
         <h3>username: {userName}</h3>
+      </div>
+
+      <div id='feed' role="feed">
+          {
+            posts.slice().reverse().map((post) => {
+              return <Post post={ post }/>
+            })
+          }
       </div>
       </>
     )
