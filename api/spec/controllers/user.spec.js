@@ -47,7 +47,7 @@ describe("/user", () => {
           let response = await request(app)
               .get("/user?username=testy")
               .set("Authorization", `Bearer ${token}`);
-        let newPayload = JWT.decode(response.body.token, process.env.JWT_SECRET);
+        let newPayload =  JWT.decode(response.body.token, process.env.JWT_SECRET);
         let originalPayload = JWT.decode(token, process.env.JWT_SECRET);
         expect(newPayload.iat > originalPayload.iat).toBeTruthy();
         })
@@ -97,5 +97,6 @@ describe("/user", () => {
         })
 
       })
+      
   
 });

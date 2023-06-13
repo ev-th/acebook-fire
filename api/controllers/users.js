@@ -34,7 +34,8 @@ const UsersController = {
       user.save((err) => {
         if (err) {
           // Handle any database error
-          return res.status(400).json({ message: 'Internal Server Error' });
+          
+          return res.status(400).json({ message: 'All fields are required' });
         }
         
         // User successfully created
