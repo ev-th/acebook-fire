@@ -3,10 +3,13 @@ import React from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 const Navbar = () => {
+   const navigate = useNavigate();
+
     const logout = () => {
         window.localStorage.removeItem("token")
-        useNavigate('/login')
+        navigate('/login')
       }
+
     return(
         <header data-cy="navbar" className="navbar">
         <h1>Acebook</h1>
