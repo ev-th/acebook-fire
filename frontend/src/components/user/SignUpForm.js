@@ -14,7 +14,7 @@ const SignUpForm = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    fetch( '/users', {
+   let response = await fetch( '/users', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -27,13 +27,14 @@ const SignUpForm = ({ navigate }) => {
         userName: userName,
       })
     })
-      .then(response => {
-        if(response.status === 201) {
-          navigate('/login')
-        } else {
-          navigate('/signup')
-        }
-      })
+    if(response.status === 201) {
+      navigate('/login')
+    } else {
+      let data = await response.json()
+      alert(data.message)
+      navigate('/signup')
+    }  
+
   }
 
   const handleEmailChange = (event) => {

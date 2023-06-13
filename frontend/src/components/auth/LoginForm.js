@@ -17,7 +17,8 @@ const LogInForm = ({ navigate }) => {
     })
 
     if(response.status !== 201) {
-      console.log("oop")
+      let data = await response.json()
+      alert(data.message)
       navigate('/login')
     } else {
       console.log("yay")
