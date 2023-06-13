@@ -12,6 +12,7 @@ const Profile = ({ navigate, params }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [posts, setPosts] = useState([]);
   const [userID, setUserID] = useState("");
+  const [profileID, setProfileID] = useState("");
   
   useEffect(() => {
     if(token) {
@@ -29,10 +30,13 @@ const Profile = ({ navigate, params }) => {
         setFirstName(data.user.firstName)
         setLastName(data.user.lastName)
         setUserName(data.user.userName)
+        setProfileID(data.user.userId)
         })
         fetchPosts()
       }
     }, [])
+
+   
     
     const fetchPosts = async () => {
       const response = await fetch("/posts", {
@@ -66,7 +70,7 @@ const Profile = ({ navigate, params }) => {
 
       <div id='feed' role="feed">
           {
-            posts.slice().reverse().filter(post => post.userId === userID).map((post) => {
+            posts.slice().reverse().filter(post => post.userId === profileID).map((post) => {
               return <Post post={ post }/>
             })
           }
