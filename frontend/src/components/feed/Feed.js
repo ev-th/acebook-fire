@@ -8,11 +8,11 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newPost, setNewPost] = useState("");
-  const [userID] = useState(jwtDecode(token).user_id);
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
     if(token) {
-      console.log(`User ID: ${userID}`);
+      setUserID(jwtDecode(token).user_id);
       fetchPosts();
     } else {
       navigate('/login')
