@@ -11,7 +11,6 @@ const Profile = ({ navigate, params }) => {
   const [lastName, setLastName] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [posts, setPosts] = useState([]);
-  const [userPosts, setUserPosts] = useState([]);
   const [userID, setUserID] = useState("");
   
   useEffect(() => {
@@ -30,11 +29,8 @@ const Profile = ({ navigate, params }) => {
         setFirstName(data.user.firstName)
         setLastName(data.user.lastName)
         setUserName(data.user.userName)
-        });
-        fetchPosts().then(() => {
-          let filteredPosts = posts.filter(post => post.userId === userID);
-          setUserPosts(filteredPosts);
         })
+        fetchPosts()
       }
     }, [])
     
@@ -54,14 +50,7 @@ const Profile = ({ navigate, params }) => {
       window.localStorage.removeItem("token")
       navigate('/login')
     }
-
-   
-  //  setUserPosts(filteredPosts);
-
-  // console.log(filteredPosts)
-  console.log(userID)
-  // setPosts(filteredPosts);
-
+    
     if(token) {
       return (
         <>
@@ -77,7 +66,7 @@ const Profile = ({ navigate, params }) => {
 
       <div id='feed' role="feed">
           {
-            userPosts.slice().reverse().map((post) => {
+            posts.slice().reverse().filter(post => post.userId === userID).map((post) => {
               return <Post post={ post }/>
             })
           }
