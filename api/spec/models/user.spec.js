@@ -77,7 +77,7 @@ describe("User model", () => {
       User.find((err, users) => {
         expect(err).toBeNull();
         const hashedPassword = user.password
-        expect(users[0]).toMatchObject({
+        expect(users.slice(-1)[0]).toMatchObject({
           email: "someone@example.com",
           password: hashedPassword,
           firstName: "John",
