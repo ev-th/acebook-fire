@@ -3,8 +3,8 @@ const navigate = () => {}
 
 describe("Feed", () => {
   it("Calls the /posts endpoint and lists all the posts", () => {
-    window.localStorage.setItem("token", "fakeToken")
-    
+    window.localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ4MzFmOTZhNDJmNDk5NjM1MzQ0MWY1IiwiaWF0IjoxNjg2NjUyNTgyLCJleHAiOjM2ODY2NTMxODJ9.N1zZmZBfU4B9o_IFVzHePtkDKTPzprY2TTcUMCSDTxk")
+
     cy.intercept('GET', '/posts', (req) => {
         req.reply({
           statusCode: 200,
@@ -26,7 +26,7 @@ describe("Feed", () => {
   })
 
   it("lists all the posts in reverse chronological order", () => {
-    window.localStorage.setItem("token", "fakeToken")
+    window.localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ4MzFmOTZhNDJmNDk5NjM1MzQ0MWY1IiwiaWF0IjoxNjg2NjUyNTgyLCJleHAiOjM2ODY2NTMxODJ9.N1zZmZBfU4B9o_IFVzHePtkDKTPzprY2TTcUMCSDTxk")
     
     cy.intercept('GET', '/posts', (req) => {
         req.reply({
@@ -50,7 +50,7 @@ describe("Feed", () => {
   })
 
   it("Should post a new post and display on the page", () => {
-    window.localStorage.setItem("token", "fakeToken")
+    window.localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ4MzFmOTZhNDJmNDk5NjM1MzQ0MWY1IiwiaWF0IjoxNjg2NjUyNTgyLCJleHAiOjM2ODY2NTMxODJ9.N1zZmZBfU4B9o_IFVzHePtkDKTPzprY2TTcUMCSDTxk")
     cy.mount(<Feed navigate={navigate}/>)
     
     cy.intercept('POST', '/posts', {
@@ -70,7 +70,7 @@ describe("Feed", () => {
   })
   
   it("empties the content of the new post input box when submitted", () => {
-    window.localStorage.setItem("token", "fakeToken")
+    window.localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ4MzFmOTZhNDJmNDk5NjM1MzQ0MWY1IiwiaWF0IjoxNjg2NjUyNTgyLCJleHAiOjM2ODY2NTMxODJ9.N1zZmZBfU4B9o_IFVzHePtkDKTPzprY2TTcUMCSDTxk")
     cy.mount(<Feed navigate={navigate}/>)
     
     cy.intercept('POST', '/posts', {
