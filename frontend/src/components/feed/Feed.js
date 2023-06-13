@@ -40,7 +40,7 @@ const Feed = ({ navigate }) => {
       },
       body: JSON.stringify({ 
         newPost: newPost,
-        userID: userID
+        userId: userID
       })
     })
   }
