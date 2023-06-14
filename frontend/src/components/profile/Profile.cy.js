@@ -69,7 +69,11 @@ describe("Profile", () => {
       });
     }).as("getPost");
 
-    cy.mount(<Profile navigate={navigate} params={useParams} />);
+    cy.mount(
+      <Router>
+        <Profile navigate={navigate} params={useParams} />
+      </Router>
+    );
 
     cy.wait("@getUser").then(() => {
       cy.wait("@getPost").then((response) => {

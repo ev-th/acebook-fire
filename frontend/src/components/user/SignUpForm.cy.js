@@ -41,7 +41,11 @@ describe("Signing up", () => {
     })
   })
   it("contains the error message in an alert box", () => {
-    cy.mount(<SignUpForm navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <SignUpForm navigate={navigate}/>
+      </Router>
+    );
 
     cy.intercept('POST', '/users', { message: "TEST" }).as("signUpRequest")
 
