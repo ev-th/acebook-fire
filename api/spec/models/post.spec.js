@@ -13,6 +13,25 @@ describe("Post model", () => {
     });
   });
 
+  let user;
+
+  beforeAll(async () => {
+    user = new User({
+      email: "someone@example.com",
+      password: "password",
+      firstName: "John",
+      lastName: "Smith",
+      userName: "js93",
+    });
+
+    await user.save();
+  })
+
+  afterAll(async () => {
+    await User.deleteMany({});
+    await Post.deleteMany({});
+  })
+
   it("has a message", () => {
     let post = new Post({ newPost: "some message" });
     expect(post.newPost).toEqual("some message");
@@ -27,19 +46,11 @@ describe("Post model", () => {
   });
 
   it("can save a post", (done) => {
-    const user = new User({
-      email: "someone@example.com",
-      password: "password",
-      firstName: "John",
-      lastName: "Smith",
-      userName: "js93",
-    });
-
     const post = new Post({ newPost: "some message", userId: user._id });
     console.log(post);
     post.save((err) => {
       expect(err).toBeNull();
-
+      
       Post.find((err, posts) => {
         expect(err).toBeNull();
         expect(posts.slice(-1)[0]).toMatchObject({
@@ -50,4 +61,16 @@ describe("Post model", () => {
       });
     });
   });
+  
+  it("initialises with an empty array of likes", () => {
+    let post = new Post({ newPost: "some message", userId: user._id });
+    expect(post.likes.toObject()).toEqual([]);
+  })
+  
+  it("can add a new like to the likes array", () => {
+    const post = new Post({ newPost: "some message", userId: user._id });
+    post.likes.push('1234');
+    expect(post.likes.toObject()).toEqual(['1234'])
+  })
+
 });
