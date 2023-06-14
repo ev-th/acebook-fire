@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../navbar/Navbar';
 import Post from '../post/Post';
-import jwtDecode from 'jwt-decode';
 
 const Profile = ({ navigate, params }) => {
   const { username }  = params()
@@ -16,7 +15,6 @@ const Profile = ({ navigate, params }) => {
   
   useEffect(() => {
     if(token) {
-      setUserID(jwtDecode(token).user_id);
       fetch(`/user?username=${username}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
