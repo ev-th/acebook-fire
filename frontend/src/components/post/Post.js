@@ -28,11 +28,13 @@ return (
         {showComments ? "Hide Comments" : "Show Comments"}
       </button>
     </div>
+
     <form className="comment-form" onSubmit={(event) =>{ addComment(event, event.target.elements.comment.value)}}>
-        <input placeholder="comment" id="comment" name="comment" type="text" />
-        {console.log(commentsArr)}
-        <button id="submit" type="submit" >Submit</button>
-      </form>
+      <input placeholder="comment" id="comment" name="comment" type="text" />
+      {console.log(commentsArr)}
+      <button id="submit" type="submit" >Submit</button>
+    </form>
+
   {showComments && (
     <div className="comments" data-cy="comments" key={post._id}>
 
@@ -40,11 +42,7 @@ return (
           {commentsArr.slice().reverse().map((comment) => {
             return <CommentList comment={comment} />;
           })}
-          
         </div>
-
-    
-       
     </div>
   )}
   </div>
