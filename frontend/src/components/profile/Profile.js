@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Post from "../post/Post";
+// import CloudinaryUploadWidget from "./CloudinaryUploadWidget"; 
+import UploadWidget from "../UploadWidget";
 
 const Profile = ({ navigate, params }) => {
   const { username } = params();
@@ -57,8 +59,10 @@ const Profile = ({ navigate, params }) => {
     return (
       <>
         <Navbar navigate={ navigate }/>
+
+        <UploadWidget />
+
         <div data-cy="profile">
-          <button onClick={logout}>Logout</button>
           <h2>Profile Page</h2>
           <h3>Name: {`${firstName} ${lastName}`}</h3>
           <h3>username: {userName}</h3>
