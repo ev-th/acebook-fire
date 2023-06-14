@@ -32,7 +32,6 @@ const Profile = ({ navigate, params }) => {
         });
       fetchPosts();
     } else {
-      alert("please login to access page")
       navigate('/login')
     }
   }, []);
@@ -76,9 +75,7 @@ const Profile = ({ navigate, params }) => {
         </div>
       </>
     );
-  } else {
-    navigate("/login");
-  }
+  } 
 };
 
 export default Profile;
