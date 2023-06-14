@@ -1,4 +1,5 @@
-import Profile from './Profile'
+import { BrowserRouter as Router } from 'react-router-dom';
+import Profile from './Profile';
 const navigate = () => {}
 const useParams = () => {
   return {
@@ -24,7 +25,11 @@ describe("Profile", () => {
       }
     ).as("getUser")
 
-    cy.mount(<Profile navigate={navigate} params={useParams}/>)
+    cy.mount(
+    <Router>
+    <Profile navigate={navigate} params={useParams} />
+    </Router>
+  );
 
     cy.wait("@getUser").then(() => {
       cy.get('[data-cy="profile"]')
