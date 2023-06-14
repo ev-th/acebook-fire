@@ -8,8 +8,9 @@
     margin: 16px;
     justify-self: center;
     display: flex;
-    align-items: center;
+    align-items: left;
     margin: 16px auto;
+    flex-direction: column;
 
 }
 
@@ -20,4 +21,48 @@
 .name:hover {
     color: rgb(245, 169, 169);
     cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.comments {
+    justify-self: left;
+    align-items: left;
+}
+
+.comments-toggle {
+    width: 100%;
+    margin-top: 10px;
+    
+}
+  
+.comment-form {
+    margin-top: 10px;
+    align-items: left;
+}
+  
+.comment-form input {
+    margin-right: 10px;
+}
+  
+.comment-form input[type="submit"] {
+    background-color: rgb(251, 76, 76);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.comment-list {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    align-items: left;
 }
