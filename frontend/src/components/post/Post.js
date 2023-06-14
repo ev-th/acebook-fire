@@ -10,10 +10,14 @@ const toggleComments = () => {
   setShowComments(!showComments);
 }
 
-const commentsArr = [{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}]
-
+let commentsArr = [{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}]
+const addComment = (event, str) => {
+  event.preventDefault();
+  commentsArr.push({comment: str})
+}
 return (
   <div className="post" data-cy="post" key={post._id}>
+    
     <div>
       <p className="name">{post.firstName + " " + post.lastName}</p>
       <p>{post.content}</p>
@@ -24,7 +28,11 @@ return (
         {showComments ? "Hide Comments" : "Show Comments"}
       </button>
     </div>
-  
+    <form className="comment-form" onSubmit={(event) =>{ addComment(event, event.target.elements.comment.value)}}>
+        <input placeholder="comment" id="comment" name="comment" type="text" />
+        {console.log(commentsArr)}
+        <button id="submit" type="submit" >Submit</button>
+      </form>
   {showComments && (
     <div className="comments" data-cy="comments" key={post._id}>
 
@@ -32,12 +40,11 @@ return (
           {commentsArr.slice().reverse().map((comment) => {
             return <CommentList comment={comment} />;
           })}
+          
         </div>
 
-        <form className="comment-form">
-        <input placeholder="comment" id="comment" type="text" />
-        <input id="submit" type="submit" value="Submit" />
-      </form>
+    
+       
     </div>
   )}
   </div>
