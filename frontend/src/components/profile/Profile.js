@@ -31,6 +31,9 @@ const Profile = ({ navigate, params }) => {
           setProfileID(data.user.userId);
         });
       fetchPosts();
+    } else {
+      alert("please login to access page")
+      navigate('/login')
     }
   }, []);
 
