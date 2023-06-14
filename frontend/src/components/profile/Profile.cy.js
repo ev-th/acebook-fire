@@ -41,24 +41,35 @@ describe("Profile", () => {
         statusCode: 200,
         body: {
           user: {
+            userId: 123,
             firstName: "Fakey",
             lastName: "Fakeson",
             userName: "fakeyfake",
-            profileID: "1"
           },
+        },
+      });
+    }).as("getUser");
 
-          posts: [{ _id: 1, newPost: "my post 1", userId: '1' }],
+    cy.intercept("GET", "/posts", (req) => {
+      req.reply({
+        statusCode: 200,
+        body: {
+          posts: [
+            { _id: 1, newPost: "my post 1", userId: 123 },
+            { _id: 2, newPost: "Test post shouldnt show", userId: 456 },
+          ],
         },
       });
     }).as("getPost");
 
     cy.mount(<Profile navigate={navigate} params={useParams} />);
 
-    cy.wait("@getPost").then((response) => {
-      const posts = response.body.posts;
-      cy.get('[data-cy="post"]')
-        .should("contain.text", "my post 1")
-        .and("have.length", 1);
+    cy.wait("@getUser").then(() => {
+      cy.wait("@getPost").then((response) => {
+        cy.get('[data-cy="post"]')
+          .should("contain.text", "my post 1")
+          .should("not.contain.text", "Test post shouldnt show");
+      });
     });
   });
 });
