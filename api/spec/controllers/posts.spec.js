@@ -104,6 +104,7 @@ describe("/posts", () => {
         .set("Authorization", `Bearer ${token}`)
         .send({token: token});
       
+      console.log(response.body.posts);
       let messages = response.body.posts.map((post) => ( post.newPost));
       //console.log(messages[]);
       expect(messages).toEqual(["howdy!", "hola!"]);
