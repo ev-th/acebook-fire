@@ -14,8 +14,8 @@ describe("Post model", () => {
   });
 
   it("has a message", () => {
-    let post = new Post({ newPost: "some message" });
-    expect(post.newPost).toEqual("some message");
+    let post = new Post({ content: "some message" });
+    expect(post.content).toEqual("some message");
   });
 
   it("can list all posts", (done) => {
@@ -35,7 +35,7 @@ describe("Post model", () => {
       userName: "js93",
     });
 
-    const post = new Post({ newPost: "some message", userId: user._id });
+    const post = new Post({ content: "some message", userId: user._id });
     console.log(post);
     post.save((err) => {
       expect(err).toBeNull();
@@ -43,7 +43,7 @@ describe("Post model", () => {
       Post.find((err, posts) => {
         expect(err).toBeNull();
         expect(posts.slice(-1)[0]).toMatchObject({
-          newPost: "some message", 
+          content: "some message", 
           userId: user._id
         });
         done();

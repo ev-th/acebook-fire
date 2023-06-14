@@ -8,7 +8,7 @@ const Post = ({post}) => {
 
       <div>
         <p className="name">{post.firstName +" "+ post.lastName}</p> 
-        <p>{ post.newPost }</p>
+        <p>{ post.content }</p>
       </div>
       </div>
   )

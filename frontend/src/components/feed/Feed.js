@@ -9,7 +9,7 @@ import './Feed.css';
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [newPost, setNewPost] = useState("");
+  const [content, setContent] = useState("");
   const [userID, setUserID] = useState("");
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Feed = ({ navigate }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        newPost: newPost,
+        content: content,
         userId: userID
       })
     })
@@ -55,7 +55,7 @@ const Feed = ({ navigate }) => {
     if(token) {
       const response = await saveNewPost();
       if(response.status === 201) {
-        setNewPost("")
+        setContent("")
         fetchPosts();
       }
     } else {
@@ -64,7 +64,7 @@ const Feed = ({ navigate }) => {
   }
   
   const handlePostChange = (event) => {
-    setNewPost(event.target.value)
+    setContent(event.target.value)
   }
 
   const logout = () => {
@@ -81,7 +81,7 @@ const Feed = ({ navigate }) => {
         <button onClick={ logout }>Logout</button>
 
         <form onSubmit={handleSubmitPost}>
-          <input placeholder="post" id="post" type='text' value={ newPost } onChange={handlePostChange} />
+          <input placeholder="post" id="post" type='text' value={ content } onChange={handlePostChange} />
           <input id='submit' type="submit" value="Submit" />
         </form>
 

@@ -3,7 +3,7 @@ const User = require("./user");
 
 
 const PostSchema = new mongoose.Schema({
-  newPost: { type: String, require: true },
+  content: { type: String, require: true },
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
