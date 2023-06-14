@@ -56,7 +56,7 @@ const Profile = ({ navigate, params }) => {
   if (token) {
     return (
       <>
-        <Navbar />
+        <Navbar navigate={ navigate }/>
         <div data-cy="profile">
           <button onClick={logout}>Logout</button>
           <h2>Profile Page</h2>
