@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
 import Navbar from '../navbar/Navbar';
 import jwtDecode from 'jwt-decode';
+import './Feed.css';
+
 
 
 const Feed = ({ navigate }) => {
@@ -29,6 +31,7 @@ const Feed = ({ navigate }) => {
       window.localStorage.setItem("token", data.token);
       setToken(window.localStorage.getItem("token"));
       setPosts(data.posts);
+      console.log(data.posts);
   }
 
   const saveNewPost = async () => {

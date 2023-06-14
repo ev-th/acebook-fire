@@ -17,10 +17,10 @@ const LogInForm = ({ navigate }) => {
     })
 
     if(response.status !== 201) {
-      console.log("oop")
+      let data = await response.json()
+      alert(data.message)
       navigate('/login')
     } else {
-      console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
       navigate('/posts');
