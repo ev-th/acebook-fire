@@ -10,7 +10,7 @@ const SessionsController = {
     User.findOne({ email: email }).then(async (user) => {
       if (!user) {
         console.log('auth error: user not found');
-        res.status(401).json({ message: 'auth error' });
+        res.status(401).json({ message: 'user not found' });
       } else {
         // Compare the provided password with the stored hashed password
         const passwordMatches = await bcrypt.compare(password, user.password);
@@ -20,7 +20,7 @@ const SessionsController = {
           res.status(201).json({ token: token, message: 'OK' });
         } else {
           console.log('auth error: passwords do not match');
-          res.status(401).json({ message: 'auth error' });
+          res.status(401).json({ message: 'Password does not match email' });
         }
       }
     });

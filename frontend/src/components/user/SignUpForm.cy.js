@@ -40,4 +40,19 @@ describe("Signing up", () => {
       expect(interception.response.body.message).to.eq("TEST")
     })
   })
+  it("contains the error message in an alert box", () => {
+    cy.mount(<SignUpForm navigate={navigate}/>)
+
+    cy.intercept('POST', '/users', { message: "TEST" }).as("signUpRequest")
+
+    cy.get("#email").type("someone@example.com");
+    cy.get("#firstName").type("test");
+    cy.get("#lastName").type("testson");
+    cy.get("#userName").type("testy");
+    cy.get("#submit").click();
+    cy.wait('@signUpRequest')
+    cy.on('window:alert', (message) => {
+      expect(message).to.contain("TEST"); 
+    });
+  })
 })
