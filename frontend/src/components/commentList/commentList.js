@@ -5,10 +5,8 @@ import './commentList.css';
   const CommentList = ({comment}) => {
     return(
       <div className="comment" data-cy="comment" key={ comment._id }>
-  
         <div>
-          {/* <p className="name">{comment.firstName +" "+ comment.lastName}</p> 
-          <p>{ comment.content }</p> */}
+          { <p className="comment"> {comment.comment}</p> }
         </div>
         </div>
     )

@@ -4,7 +4,9 @@ import './Post.css';
 
 
 const Post = ({post}) => {
-  
+
+const commentsArr = [{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}]
+
   return(
     <div className="post" data-cy="post" key={ post._id }>
 
@@ -13,13 +15,17 @@ const Post = ({post}) => {
         <p>{ post.content }</p>
       </div>
       <div id='feed' role="feed">
+         { console.log(commentsArr)}
           {
-            post.commentArray.slice().reverse().map((comment) => {
-              return <commentList comment={ comment }/>
+            commentsArr.slice().reverse().map((comment) => {
+              return <CommentList comment={ comment }/>
             })
           }
         </div>
-      
+        <form> 
+          <input placeholder="comment" id="comment" type='text' />
+          <input id='submit' type="submit" value="Submit" />
+        </form>
       </div>
   )
 }
