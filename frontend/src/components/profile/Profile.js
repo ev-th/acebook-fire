@@ -66,7 +66,7 @@ const Profile = ({ navigate, params }) => {
         <h3>username: {userName}</h3>
       </div>
 
-      <div id='feed' role="feed">
+      <div data-cy="post" id='feed' role="feed">
           {
             posts.slice().reverse().filter(post => post.userId === profileID).map((post) => {
               return <Post post={ post }/>
