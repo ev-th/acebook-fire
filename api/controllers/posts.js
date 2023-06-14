@@ -43,7 +43,31 @@ const PostsController = {
       res.status(201).json({ message: 'OK', token: token });
     });
   },
-  Update: (req, res) => {}
+  Update: (req, res) => {
+    const postId = req.body.postId;
+    const like = req.body.like;
+    console.log(`im here!!`)
+    console.log(postId)
+
+
+    Post.findById(postId).then( async (post) => {
+      // console.log(`the post: ${post}`)
+      if (!post) {
+        console.log("auth error: post not found")
+        res.status(401).json({ message: "auth error" });
+      } else {
+        const token = await TokenGenerator.jsonwebtoken(user.id)
+        res.status(200).json({ message: "OK", token: token});
+      }
+    }
+      // async (err, post)=>{
+      // await post.likes.push(like);
+      // await post.save();}
+      );
+
+
+
+  }
 };
 
 module.exports = PostsController;

@@ -171,4 +171,39 @@ describe("/posts", () => {
       expect(response.body.token).toEqual(undefined);
     })
   })
+
+  describe("PATCH, when token is present", () => {
+  let post;
+  beforeAll(()=>{
+    post = new Post({message: "howdy!", userId: user._id});
+  });
+  
+    xtest("responds with a 201", async () => {
+      let response = await request(app)
+        .patch("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ postId: post._id, like: "8989898", token: token });
+      expect(response.status).toEqual(201);
+    });
+  
+    xtest("updates a post with a like", async () => {
+      await request(app)
+        .patch("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({postId: post._id, like: "8989898", token: token});
+      let posts = await Post.find();
+      // expect(posts.length).toEqual(1);
+      // expect(posts.slice(-1)[0].likes.toObject()).toEqual("8989898");
+    });
+  
+    xtest("returns a new token", async () => {
+      let response = await request(app)
+        .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({newPost: "hello world", userId: user._id, token: token });
+      let newPayload = JWT.decode(response.body.token, process.env.JWT_SECRET);
+      let originalPayload = JWT.decode(token, process.env.JWT_SECRET);
+      expect(newPayload.iat > originalPayload.iat).toEqual(true);
+    });  
+  });
 });
