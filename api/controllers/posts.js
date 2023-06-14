@@ -43,6 +43,7 @@ const PostsController = {
       res.status(201).json({ message: 'OK', token: token });
     });
   },
+  Update: (req, res) => {}
 };
 
 module.exports = PostsController;

@@ -71,6 +71,27 @@ describe("Post model", () => {
     const post = new Post({ newPost: "some message", userId: user._id });
     post.likes.push('1234');
     expect(post.likes.toObject()).toEqual(['1234'])
-  })
+  });
+
+  it("can update a post with a new 'like'", (done) => {
+    const post = new Post({ newPost: "some message", userId: user._id });
+    console.log(post);
+    post.save((err) => {      
+      Post.find((err, posts) => {
+        let lastPost = posts.slice(-1)[0];
+        expect(lastPost.likes.toObject()).toEqual([]);
+        post.likes.push('1234');
+        post.save((err) => {      
+          Post.find((err, posts) => {
+            let lastPost = posts.slice(-1)[0];
+            expect(lastPost.likes.toObject()).toEqual(['1234']);
+            done();
+          });
+        });
+      });
+    });
+  });
+
+  
 
 });
