@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import jwtDecode from 'jwt-decode';
 
-const UploadWidget = ({username}) => {
+const UploadWidget = () => {
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const userId = jwtDecode(token).user_id;
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-  const [token, setToken] = useState(window.localStorage.getItem("token"));
   const imageUrl =
     "https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png";
 
@@ -25,7 +27,7 @@ const UploadWidget = ({username}) => {
               },
               body: JSON.stringify(
                 {
-                  userName: username,
+                  userId: userId,
                   imageUrl: imageUrl,
                 }
               ),
@@ -38,6 +40,7 @@ const UploadWidget = ({username}) => {
       }
     );
   }, []);
+ 
   return <button onClick={() => widgetRef.current.open()}>Upload</button>;
 };
 

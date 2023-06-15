@@ -31,13 +31,13 @@ const UserController = {
   },
 
   UpdateImageUrl: async (req, res) => {
-    const { userName } = req.body.username;
-    const { imageUrl } = req.body.imageUrl;
+    const userId = req.body.userId;
+    const imageUrl = req.body.imageUrl;
 
     try {
       const updatedUser = await User.findOneAndUpdate(
-        { userName },
-        { imageUrl },
+        { _id: userId  },
+        { imageUrl: imageUrl },
         { new: true }
       );
 
