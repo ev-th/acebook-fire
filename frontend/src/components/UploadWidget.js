@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Image } from 'cloudinary-react';
 
 const UploadWidget = () => {
  const cloudinaryRef = useRef();
@@ -11,8 +12,9 @@ const UploadWidget = () => {
         cloudName: 'dzdwjdv7d',
         uploadPreset: 'cdnf3xhm'
     }, function(error, result) {
-        setImageURL(result.info.secure_url);
-        console.log(result.info)
+        if (result && result.event === 'success') {
+            setImageURL(result.info.secure_url);
+        }
     })
  }, [])
 
