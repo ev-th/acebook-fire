@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 const UploadWidget = () => {
- const cloudinaryRef = useRef();
- const widgetRef = useRef();
- const [imageURL, setImageURL] = useState("");
+const cloudinaryRef = useRef();
+const widgetRef = useRef();
+const [imageUrl, setImageURL] = useState("");
 
  useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -21,12 +21,12 @@ const UploadWidget = () => {
     widgetRef.current.open();
   };
 
-  console.log(imageURL)
+  console.log(imageUrl)
 
 return (
     <div>
     <button onClick={openWidget}>Upload Image</button>
-          {imageURL && <img src={imageURL} alt="" />}
+          {imageUrl && <img src={imageUrl} alt="" />}
     </div>
 )
 }
