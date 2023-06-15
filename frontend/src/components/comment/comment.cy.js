@@ -14,6 +14,4 @@ describe( "Comment", ()=> {
     
     cy.get('[data-cy="comment"]').should('contain.text', "some test content");
   })
-
-  xit('renders a comment with a name', () => {}
-}
+});
