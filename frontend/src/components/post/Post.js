@@ -6,6 +6,18 @@ import './Post.css';
 const Post = ({post}) => {
 const [showComments, setShowComments] = useState(false);
 const [commentsArr, setCommentsArr] = useState([{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}])
+const [likes, setLikes] =useState(0);
+const [isLiked, setIsLiked] = useState(false);
+
+const handleLike = () => {
+  if (!isLiked) {
+    setLikes((prevLikes) => prevLikes + 1);
+    setIsLiked(true);
+  } else {
+    setLikes((prevLikes) => prevLikes - 1);
+    setIsLiked(false);
+  }
+};
 
 const toggleComments = () => {
   setShowComments(!showComments);
@@ -24,6 +36,13 @@ return (
     <div>
       <p className="name">{post.firstName + " " + post.lastName}</p>
       <p>{post.content}</p>
+    </div>
+
+    <div className="likes-toggle">
+    <button onClick={handleLike} >
+        {isLiked ? 'Liked' : 'Like'}
+      </button>
+      <p>Likes: {likes}</p>
     </div>
 
     <div className="comments-toggle">
