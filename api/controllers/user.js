@@ -31,8 +31,8 @@ const UserController = {
   },
 
   UpdateImageUrl: async (req, res) => {
-    const { userName } = req.params;
-    const { imageUrl } = req.body;
+    const { userName } = req.body.username;
+    const { imageUrl } = req.body.imageUrl;
 
     try {
       const updatedUser = await User.findOneAndUpdate(

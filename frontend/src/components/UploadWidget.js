@@ -17,13 +17,18 @@ const UploadWidget = ({username}) => {
       async function (error, result) {
         if (!error && result && result.event === "success") {
           try {
-            await fetch(`/user/${username}`, {
+            await fetch(`/user`, {
               method: "PATCH",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
-              body: JSON.stringify({ imageUrl }),
+              body: JSON.stringify(
+                {
+                  userName: username,
+                  imageUrl: imageUrl,
+                }
+              ),
             });
             console.log("url saved in the database");
           } catch (error) {
