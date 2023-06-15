@@ -43,6 +43,26 @@ const PostsController = {
       res.status(201).json({ message: 'OK', token: token });
     });
   },
+  Update: (req, res) => {
+    const postId = req.body.postId;
+    const like = req.body.like;
+
+    Post.findById(postId, (err, post) => {
+      if (err) {
+        throw err;
+      }
+
+      post.likes.push(like);
+      post.save(async (err) => {
+        if (err) {
+          throw err;
+        }
+
+        const token = await TokenGenerator.jsonwebtoken(req.user_id)
+        res.status(201).json({ message: "OK", token: token});
+      });
+    })
+  }
 };
 
 module.exports = PostsController;
