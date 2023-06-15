@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 const { ObjectId } = require('mongoose').Types;
 
-
 require("../mongodb_helper");
 const Post = require("../../models/post");
 const User = require("../../models/user");
@@ -91,7 +90,4 @@ describe("Post model", () => {
       });
     });
   });
-
-  
-
 });

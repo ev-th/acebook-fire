@@ -46,27 +46,34 @@ const PostsController = {
   Update: (req, res) => {
     const postId = req.body.postId;
     const like = req.body.like;
-    console.log(`im here!!`)
-    console.log(postId)
 
+    // Post.findById(postId).then( async (post) => {
+    //   if (!post) {
+    //     res.status(401).json({ message: "auth error" });
+    //   } else {
 
-    Post.findById(postId).then( async (post) => {
-      // console.log(`the post: ${post}`)
-      if (!post) {
-        console.log("auth error: post not found")
-        res.status(401).json({ message: "auth error" });
-      } else {
-        const token = await TokenGenerator.jsonwebtoken(user.id)
-        res.status(200).json({ message: "OK", token: token});
+    //     post.likes.push(like);
+    //     await post.save();
+    //     const token = await TokenGenerator.jsonwebtoken(req.user_id)
+    //     res.status(201).json({ message: "OK", token: token});
+    //   }
+    // });
+
+    Post.findById(postId, (err, post) => {
+      if (err) {
+        throw err;
       }
-    }
-      // async (err, post)=>{
-      // await post.likes.push(like);
-      // await post.save();}
-      );
 
+      post.likes.push(like);
+      post.save(async (err) => {
+        if (err) {
+          throw err;
+        }
 
-
+        const token = await TokenGenerator.jsonwebtoken(req.user_id)
+        res.status(201).json({ message: "OK", token: token});
+      });
+    })
   }
 };
 

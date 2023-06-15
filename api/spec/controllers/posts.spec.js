@@ -29,13 +29,12 @@ describe("/posts", () => {
     }, secret);
   });
 
-  beforeEach( async () => {
+  afterEach( async () => {
     await Post.deleteMany({});
   })
 
   afterAll( async () => {
     await User.deleteMany({});
-    await Post.deleteMany({});
   })
 
   describe("POST, when token is present", () => {
@@ -172,38 +171,61 @@ describe("/posts", () => {
     })
   })
 
-  describe("PATCH, when token is present", () => {
+  describe("PATCH, updating with a 'like'", () => {
   let post;
-  beforeAll(()=>{
+
+  beforeEach(async ()=>{
     post = new Post({message: "howdy!", userId: user._id});
+    await post.save();
   });
   
-    xtest("responds with a 201", async () => {
+    test("responds with a 201 when token is present", async () => {
       let response = await request(app)
         .patch("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({ postId: post._id, like: "8989898", token: token });
+        .send({ postId: post._id, like: "8989898"});
       expect(response.status).toEqual(201);
     });
   
-    xtest("updates a post with a like", async () => {
+    test("updates a post with a like when token is present", async () => {
       await request(app)
         .patch("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({postId: post._id, like: "8989898", token: token});
+        .send({postId: post._id, like: "8989898"});
       let posts = await Post.find();
-      // expect(posts.length).toEqual(1);
-      // expect(posts.slice(-1)[0].likes.toObject()).toEqual("8989898");
+      expect(posts.slice(-1)[0].likes.toObject()).toEqual(["8989898"]);
     });
   
-    xtest("returns a new token", async () => {
+    test("returns a new token when token is present", async () => {
       let response = await request(app)
-        .post("/posts")
+        .patch("/posts")
         .set("Authorization", `Bearer ${token}`)
-        .send({newPost: "hello world", userId: user._id, token: token });
+        .send({postId: post._id, like: "123"});
       let newPayload = JWT.decode(response.body.token, process.env.JWT_SECRET);
       let originalPayload = JWT.decode(token, process.env.JWT_SECRET);
       expect(newPayload.iat > originalPayload.iat).toEqual(true);
-    });  
+    });
+
+    test("doesn't update when token is missing", async () => {
+      let response = await request(app)
+      .patch("/posts")
+      .send({ postId: post._id, like: "8989898"});
+      let posts = await Post.find();
+      expect(posts.slice(-1)[0].likes.toObject()).toEqual([]);
+    })
+
+    test("the response code is 401 when token is missing", async () => {
+      let response = await request(app)
+      .patch("/posts")
+      .send({ postId: post._id, like: "8989898"});
+      expect(response.status).toEqual(401);
+    })
+
+    test("does not return a new token when token is missing", async () => {
+      let response = await request(app)
+      .patch("/posts")
+      .send({ postId: post._id, like: "8989898"});
+      expect(response.body.token).toEqual(undefined);
+    })
   });
 });
