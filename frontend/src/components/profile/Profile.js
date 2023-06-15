@@ -60,7 +60,7 @@ const Profile = ({ navigate, params }) => {
       <>
         <Navbar navigate={ navigate }/>
 
-        <UploadWidget />
+        <UploadWidget username={userName} />
 
         <div data-cy="profile">
           <h2>Profile Page</h2>
