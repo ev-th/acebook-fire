@@ -45,9 +45,9 @@ return (
 
       <div className="likes-toggle">
       <button id="like-button" onClick={handleLike} >
-          {isLiked ? 'Liked' : 'Like'}
+          {isLiked ? 'Liked 🔥' : 'Like 🔥'}
         </button>
-        <p id="likes">Likes: {likes}</p>
+        <p id="likes">Likes 🔥: {likes}</p>
       </div>
 
     </div>
