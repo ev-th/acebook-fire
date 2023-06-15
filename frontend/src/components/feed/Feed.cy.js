@@ -1,4 +1,5 @@
-import Feed from './Feed'
+import { BrowserRouter as Router } from 'react-router-dom';
+import Feed from './Feed';
 const navigate = () => {}
 
 describe("Feed", () => {
@@ -16,7 +17,11 @@ describe("Feed", () => {
       }
     ).as("getPosts")
 
-    cy.mount(<Feed navigate={navigate}/>)
+    cy.mount(
+        <Router>
+          <Feed navigate={navigate} />
+        </Router>
+    );
     
     cy.wait("@getPosts").then(() =>{
       cy.get('[data-cy="post"]')
@@ -39,7 +44,11 @@ describe("Feed", () => {
       }
     ).as("getPosts")
 
-    cy.mount(<Feed navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <Feed navigate={navigate} />
+      </Router>
+  );
     
     cy.wait("@getPosts").then(() =>{
       cy.get('[data-cy="post"]').then( posts => {
@@ -51,7 +60,11 @@ describe("Feed", () => {
 
   it("Should post a new post and display on the page", () => {
     window.localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ4MzFmOTZhNDJmNDk5NjM1MzQ0MWY1IiwiaWF0IjoxNjg2NjUyNTgyLCJleHAiOjM2ODY2NTMxODJ9.N1zZmZBfU4B9o_IFVzHePtkDKTPzprY2TTcUMCSDTxk")
-    cy.mount(<Feed navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <Feed navigate={navigate} />
+      </Router>
+  );
     
     cy.intercept('POST', '/posts', {
       statusCode: 201,
@@ -71,7 +84,11 @@ describe("Feed", () => {
   
   it("empties the content of the new post input box when submitted", () => {
     window.localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ4MzFmOTZhNDJmNDk5NjM1MzQ0MWY1IiwiaWF0IjoxNjg2NjUyNTgyLCJleHAiOjM2ODY2NTMxODJ9.N1zZmZBfU4B9o_IFVzHePtkDKTPzprY2TTcUMCSDTxk")
-    cy.mount(<Feed navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <Feed navigate={navigate} />
+      </Router>
+  );
     
     cy.intercept('POST', '/posts', {
       statusCode: 201,

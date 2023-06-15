@@ -1,9 +1,14 @@
-import SignUpForm from './SignUpForm'
+import SignUpForm from './SignUpForm';
+import { BrowserRouter as Router } from 'react-router-dom';
 const navigate = () => {}
 
 describe("Signing up", () => {
   it("calls the /users endpoint", () => {
-    cy.mount(<SignUpForm navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <SignUpForm navigate={navigate} />
+      </Router>
+    );
 
     cy.intercept('POST', '/users', { message: "OK" }).as("signUpRequest")
 
@@ -18,7 +23,11 @@ describe("Signing up", () => {
     })
   })
   it("does not call the /users endpoint if a field is empty", () => {
-    cy.mount(<SignUpForm navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <SignUpForm navigate={navigate} />
+      </Router>
+    );
 
     cy.intercept('POST', '/users', { message: "TEST" }).as("signUpRequest")
 
@@ -32,7 +41,11 @@ describe("Signing up", () => {
     })
   })
   it("contains the error message in an alert box", () => {
-    cy.mount(<SignUpForm navigate={navigate}/>)
+    cy.mount(
+      <Router>
+        <SignUpForm navigate={navigate}/>
+      </Router>
+    );
 
     cy.intercept('POST', '/users', { message: "TEST" }).as("signUpRequest")
 
