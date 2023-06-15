@@ -5,15 +5,18 @@ import './Post.css';
 
 const Post = ({post}) => {
 const [showComments, setShowComments] = useState(false);
+const [commentsArr, setCommentsArr] = useState([{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}])
 
 const toggleComments = () => {
   setShowComments(!showComments);
 }
 
-let commentsArr = [{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}]
-const addComment = (event, str) => {
+
+const addComment = (event) => {
   event.preventDefault();
-  commentsArr.push({comment: str})
+    const comment = event.target.elements.comment.value;
+    setCommentsArr((prevComments) => [...prevComments, { comment }]);
+    event.target.reset();
 }
 return (
   <div className="post" data-cy="post" key={post._id}>
@@ -29,10 +32,11 @@ return (
       </button>
     </div>
 
-    <form className="comment-form" onSubmit={(event) =>{ addComment(event, event.target.elements.comment.value)}}>
+    <form className="comment-form" onSubmit={(event) =>{ addComment(event)}}>
       <input placeholder="comment" id="comment" name="comment" type="text" />
-      {console.log(commentsArr)}
+      
       <button id="submit" type="submit" >Submit</button>
+      {console.log(commentsArr)}
     </form>
 
   {showComments && (
