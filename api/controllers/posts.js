@@ -47,18 +47,6 @@ const PostsController = {
     const postId = req.body.postId;
     const like = req.body.like;
 
-    // Post.findById(postId).then( async (post) => {
-    //   if (!post) {
-    //     res.status(401).json({ message: "auth error" });
-    //   } else {
-
-    //     post.likes.push(like);
-    //     await post.save();
-    //     const token = await TokenGenerator.jsonwebtoken(req.user_id)
-    //     res.status(201).json({ message: "OK", token: token});
-    //   }
-    // });
-
     Post.findById(postId, (err, post) => {
       if (err) {
         throw err;
