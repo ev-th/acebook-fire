@@ -32,7 +32,7 @@ const handleLike = async () => {
   console.log(post)
 
   const response = await fetch( '/posts', {
-    method: 'patch',
+    method: 'PATCH',
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',

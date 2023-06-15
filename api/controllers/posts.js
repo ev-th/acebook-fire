@@ -44,6 +44,7 @@ const PostsController = {
     });
   },
   Update: (req, res) => {
+    console.log('test');
     const postId = req.body.postId;
     const like = req.body.like;
     const comment = req.body.comment;
