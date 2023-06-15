@@ -10,7 +10,7 @@ const [showComments, setShowComments] = useState(false);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userID, setUserID] = useState("");
 const [commentsArr, setCommentsArr] = useState([{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}])
-const [likes, setLikes] =useState(post.likes.length);
+const [likes, setLikes] =useState(post.likes);
 const [isLiked, setIsLiked] = useState(false);
 
 
@@ -24,17 +24,47 @@ const [isLiked, setIsLiked] = useState(false);
   }, [likes])
 
 
-const handleLike = () => {
-  if (!isLiked) {
-    setLikes((prevLikes) => prevLikes + 1);
-    setIsLiked(true);
+// const handleLike = () => {
+
+const handleLike = async () => {
+ const token1 = jwtDecode(token).user_id
+  console.log(token1)
+  console.log(post)
+
+  const response = await fetch( '/posts', {
+    method: 'patch',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      postId: post._id,
+      like: token1
+    })
+  })
+  const data = await response.json()
+  window.localStorage.setItem("token", data.token);
+  setToken(window.localStorage.getItem("token"));
+  setLikes(data.post.likes)
+  console.log(data);
+
+}
+
+
+
+  // if (!isLiked) {
+  //   setLikes((prevLikes) => prevLikes + 1);
+  //   setIsLiked(true);
     //console.log(Array.isArray(post.likes));
     //console.log(setIsLiked);
-  } else {
-    setLikes((prevLikes) => prevLikes - 1);
-    setIsLiked(false);
-  }
-};
+//   } else {
+//     setLikes((prevLikes) => prevLikes - 1);
+//     setIsLiked(false);
+//   }
+// };
+
+
+
 
 const toggleComments = () => {
   setShowComments(!showComments);
@@ -62,7 +92,7 @@ return (
     <button onClick={handleLike} >
         {isLiked ? 'Liked' : 'Like'}
       </button>
-      <p>Likes: {likes}</p>
+      <p>Likes: {likes.length}</p>
     </div>
 
     <div className="comments-toggle">

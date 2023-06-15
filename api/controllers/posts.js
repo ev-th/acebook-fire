@@ -50,6 +50,7 @@ const PostsController = {
 
     Post.findById(postId, (err, post) => {
       if (err) {
+        
         throw err;
       }
 
@@ -67,7 +68,7 @@ const PostsController = {
         }
 
         const token = await TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(201).json({ message: "OK", token: token});
+        res.status(201).json({ message: "OK", token: token, post: post });
       });
     })
   }
