@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Image } from 'cloudinary-react';
 
 const UploadWidget = () => {
  const cloudinaryRef = useRef();
@@ -21,6 +20,8 @@ const UploadWidget = () => {
  const openWidget = () => {
     widgetRef.current.open();
   };
+
+  console.log(imageURL)
 
 return (
     <div>
