@@ -99,4 +99,34 @@ describe("Post model", () => {
       });
     });
   });
+
+  it("initialises with an empty array of comments", () => {
+    let post = new Post({ newPost: "some message", userId: user._id });
+    expect(post.comments.toObject()).toEqual([]);
+  })
+  
+  it("can add a new comment to the comments array", () => {
+    const post = new Post({ newPost: "some message", userId: user._id });
+    post.comments.push({userId:"34343434", content: "test comment"});
+    expect(post.comments.toObject()).toEqual([{userId:"34343434", content: "test comment"}])
+  });
+
+  it("can update a post with a new 'comment'", (done) => {
+    const post = new Post({ newPost: "some message", userId: user._id });
+    console.log(post);
+    post.save((err) => {      
+      Post.find((err, posts) => {
+        let lastPost = posts.slice(-1)[0];
+        expect(lastPost.comments.toObject()).toEqual([]);
+        post.comments.push({userId:"34343434", content: "test comment"});
+        post.save((err) => {      
+          Post.find((err, posts) => {
+            let lastPost = posts.slice(-1)[0];
+            expect(lastPost.comments.toObject()).toEqual([{userId:"34343434", content: "test comment"}]);
+            done();
+          });
+        });
+      });
+    });
+  });
 });
