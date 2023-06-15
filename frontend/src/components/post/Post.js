@@ -1,17 +1,18 @@
-import React from 'react';
-import './Post.css';
+import React from "react";
+import "./Post.css";
 
-
-const Post = ({post}) => {
-  return(
-    <div className="post" data-cy="post" key={ post._id }>
-
+const Post = ({ post }) => {
+  const userPageUrl = `/user/${post.userName}`;
+  return (
+    <div className="post" data-cy="post" key={post._id}>
       <div>
-        <p className="name">{post.firstName +" "+ post.lastName}</p> 
-        <p>{ post.newPost }</p>
+        <a href={userPageUrl} >
+          <p className="name">{post.firstName + " " + post.lastName}</p>
+        </a>
+        <p>{post.newPost}</p>
       </div>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
 export default Post;
