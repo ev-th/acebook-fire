@@ -78,10 +78,8 @@ const Feed = ({ navigate }) => {
         <Navbar navigate={ navigate }/>
         <h2>Posts</h2>
         
-        <button onClick={ logout }>Logout</button>
-
-        <form onSubmit={handleSubmitPost}>
-          <input placeholder="post" id="post" type='text' value={ content } onChange={handlePostChange} />
+        <form id="postForm" onSubmit={handleSubmitPost}>
+          <textarea rows="5" cols="40" placeholder="...add your post here!" id="post" type='text' value={ content } onChange={handlePostChange} />
           <input id='submit' type="submit" value="Submit" />
         </form>
 

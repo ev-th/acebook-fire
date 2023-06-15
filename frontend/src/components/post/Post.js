@@ -34,44 +34,58 @@ const addComment = (event) => {
 return (
   <div className="post" data-cy="post" key={post._id}>
     
-    <div>
-    <a href={userPageUrl} >
-          <p className="name">{post.firstName + " " + post.lastName}</p>
-        </a>
-      <p>{post.content}</p>
+    <div className="img-name-post-likes" >
+      <img className ="IMG" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=mp"/>
+      <div className="name-comment">
+      <a className="name" href={userPageUrl} >
+            {post.firstName + " " + post.lastName}
+          </a>
+        <p>{post.content}</p>
+      </div>
+
+      <div className="likes-toggle">
+      <button id="like-button" onClick={handleLike} >
+          {isLiked ? 'Liked' : 'Like'}
+        </button>
+        <p id="likes">Likes: {likes}</p>
+      </div>
+
     </div>
 
-    <div className="likes-toggle">
-    <button onClick={handleLike} >
-        {isLiked ? 'Liked' : 'Like'}
-      </button>
-      <p>Likes: {likes}</p>
+
+    <div className="comments-section">
+      <div className="comments-toggle">
+        <button onClick={toggleComments}>
+          {showComments ? "Hide Comments" : "Show Comments"}
+        </button>
+      </div>
+
+      <form className="comment-form" onSubmit={(event) =>{ addComment(event)}}>
+        <input placeholder="comment" id="comment" name="comment" type="text" />
+        
+        <button id="submit" type="submit" >Submit</button>
+        {console.log(commentsArr)}
+      </form>
     </div>
 
-    <div className="comments-toggle">
-      <button onClick={toggleComments}>
-        {showComments ? "Hide Comments" : "Show Comments"}
-      </button>
-    </div>
+      {showComments && (
+        <>
+        <div className="displayed-comments">
+        <a className ="IMG" href="">IMG placeholder</a>
+        <div className="comments" data-cy="comments" key={post._id}>
 
-    <form className="comment-form" onSubmit={(event) =>{ addComment(event)}}>
-      <input placeholder="comment" id="comment" name="comment" type="text" />
-      
-      <button id="submit" type="submit" >Submit</button>
-      {console.log(commentsArr)}
-    </form>
-
-  {showComments && (
-    <div className="comments" data-cy="comments" key={post._id}>
-
-        <div className="comment-list">
-          {commentsArr.slice().reverse().map((comment) => {
-            return <CommentList comment={comment} />;
-          })}
+            <div className="comment-list">
+              {commentsArr.slice().reverse().map((comment) => {
+                return <CommentList comment={comment} />;
+              })}
+            </div>
         </div>
-    </div>
-  )}
+        </div>
+        </>
+      )}
+    
   </div>
+
 )};
 
 export default Post;
