@@ -19,3 +19,11 @@ form input , textarea, button {
   padding: 0 2px;
 }
 
+button {
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+}
+
