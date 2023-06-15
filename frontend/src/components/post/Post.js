@@ -4,6 +4,7 @@ import './Post.css';
 
 
 const Post = ({post}) => {
+const userPageUrl = `/user/${post.userName}`;
 const [showComments, setShowComments] = useState(false);
 const [commentsArr, setCommentsArr] = useState([{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}])
 const [likes, setLikes] =useState(0);
@@ -34,7 +35,9 @@ return (
   <div className="post" data-cy="post" key={post._id}>
     
     <div>
-      <p className="name">{post.firstName + " " + post.lastName}</p>
+    <a href={userPageUrl} >
+          <p className="name">{post.firstName + " " + post.lastName}</p>
+        </a>
       <p>{post.content}</p>
     </div>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
-import Navbar from '../navbar/Navbar';
+import Navbar from '../navbar/Navbar'
 import jwtDecode from 'jwt-decode';
 import './Feed.css';
 
@@ -75,7 +75,7 @@ const Feed = ({ navigate }) => {
   if(token) {
     return(
       <>
-        <Navbar />
+        <Navbar navigate={ navigate }/>
         <h2>Posts</h2>
         
         <button onClick={ logout }>Logout</button>
