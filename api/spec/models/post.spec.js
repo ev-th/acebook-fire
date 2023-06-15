@@ -71,18 +71,18 @@ describe("Post model", () => {
   });
   
   it("initialises with an empty array of likes", () => {
-    let post = new Post({ newPost: "some message", userId: user._id });
+    let post = new Post({ content: "some message", userId: user._id });
     expect(post.likes.toObject()).toEqual([]);
   })
   
   it("can add a new like to the likes array", () => {
-    const post = new Post({ newPost: "some message", userId: user._id });
+    const post = new Post({ content: "some message", userId: user._id });
     post.likes.push('1234');
     expect(post.likes.toObject()).toEqual(['1234'])
   });
 
   it("can update a post with a new 'like'", (done) => {
-    const post = new Post({ newPost: "some message", userId: user._id });
+    const post = new Post({ content: "some message", userId: user._id });
     console.log(post);
     post.save((err) => {      
       Post.find((err, posts) => {
