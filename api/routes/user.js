@@ -4,6 +4,6 @@ const router = express.Router();
 const UserController = require("../controllers/user");
 
 router.get("/", UserController.Index);
-router.patch("/", UserController.UpdateImageUrl);
+router.patch("/:username", UserController.UpdateImageUrl);
 
 module.exports = router;
