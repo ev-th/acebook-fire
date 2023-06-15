@@ -66,20 +66,15 @@ const Feed = ({ navigate }) => {
   const handlePostChange = (event) => {
     setContent(event.target.value)
   }
-
-  const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
-  }
   
   if(token) {
     return(
       <>
         <Navbar navigate={ navigate }/>
-        <h2>Posts</h2>
+        <h2 id="posts-header">Posts</h2>
         
         <form id="postForm" onSubmit={handleSubmitPost}>
-          <textarea rows="5" cols="40" placeholder="...add your post here!" id="post" type='text' value={ content } onChange={handlePostChange} />
+          <textarea rows="5" cols="40" placeholder="...add a new post here!" id="post" type='text' value={ content } onChange={handlePostChange} />
           <input id='submit' type="submit" value="Submit" />
         </form>
 

@@ -1,5 +1,8 @@
-h2 {
+#posts-header {
     text-align: center;
+    color: rgb(45, 44, 44);
+    margin-bottom: 30px;
+
 }
 
 #postForm {
