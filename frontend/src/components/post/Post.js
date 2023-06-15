@@ -75,3 +75,22 @@ return (
 )};
 
 export default Post;
+
+
+const template = async () => {
+  return await fetch( '/posts', {
+    method: 'patch',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      postId: "",
+      like: "",
+      comment: {
+        userId: "",
+        content: ""
+      }
+    })
+  })
+}
