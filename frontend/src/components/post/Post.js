@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CommentList from '../commentList/commentList';
+import jwtDecode from 'jwt-decode';
 import './Post.css';
 
 
-const Post = ({post}) => {
+const Post = ({post, navigate}) => {
 const userPageUrl = `/user/${post.userName}`;
 const [showComments, setShowComments] = useState(false);
+const [token, setToken] = useState(window.localStorage.getItem("token"));
+const [userID, setUserID] = useState("");
 const [commentsArr, setCommentsArr] = useState([{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}])
-const [likes, setLikes] =useState(0);
+const [likes, setLikes] =useState(post.likes.length);
 const [isLiked, setIsLiked] = useState(false);
+
+
+  useEffect(() => {
+    if(token) {
+      setUserID(jwtDecode(token).user_id);
+      //fetchLikes();
+    } else {
+     // navigate('/login')
+    }
+  }, [likes])
+
 
 const handleLike = () => {
   if (!isLiked) {
     setLikes((prevLikes) => prevLikes + 1);
     setIsLiked(true);
+    //console.log(Array.isArray(post.likes));
+    //console.log(setIsLiked);
   } else {
     setLikes((prevLikes) => prevLikes - 1);
     setIsLiked(false);
@@ -31,6 +47,7 @@ const addComment = (event) => {
     setCommentsArr((prevComments) => [...prevComments, { comment }]);
     event.target.reset();
 }
+
 return (
   <div className="post" data-cy="post" key={post._id}>
     
@@ -77,20 +94,20 @@ return (
 export default Post;
 
 
-const template = async () => {
-  return await fetch( '/posts', {
-    method: 'patch',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ 
-      postId: "",
-      like: "",
-      comment: {
-        userId: "",
-        content: ""
-      }
-    })
-  })
-}
+// const template = async () => {
+//   return await fetch( '/posts', {
+//     method: 'patch',
+//     headers: {
+//       'Authorization': `Bearer ${token}`,
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ 
+//       postId: "",
+//       like: "",
+//       comment: {
+//         userId: "",
+//         content: ""
+//       }
+//     })
+//   })
+// }
