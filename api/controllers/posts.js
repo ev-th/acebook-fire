@@ -46,13 +46,21 @@ const PostsController = {
   Update: (req, res) => {
     const postId = req.body.postId;
     const like = req.body.like;
+    const comment = req.body.comment;
 
     Post.findById(postId, (err, post) => {
       if (err) {
         throw err;
       }
 
-      post.likes.push(like);
+      if (like) {
+        post.likes.includes(like) ?  post.likes.pull(like) : post.likes.push(like);
+      }
+      
+      if (comment) {
+        post.comments.push(comment);
+      }
+
       post.save(async (err) => {
         if (err) {
           throw err;

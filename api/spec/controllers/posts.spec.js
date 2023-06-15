@@ -195,6 +195,19 @@ describe("/posts", () => {
       let posts = await Post.find();
       expect(posts.slice(-1)[0].likes.toObject()).toEqual(["8989898"]);
     });
+
+    test("updates a post by removing like if already exists when token is present", async () => {
+      await request(app)
+        .patch("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({postId: post._id, like: "8989898"});
+      await request(app)
+        .patch("/posts")
+        .set("Authorization", `Bearer ${token}`)
+        .send({postId: post._id, like: "8989898"});
+      let posts = await Post.find();
+      expect(posts.slice(-1)[0].likes.toObject()).toEqual([]);
+    });
   
     test("returns a new token when token is present", async () => {
       let response = await request(app)
@@ -228,4 +241,32 @@ describe("/posts", () => {
       expect(response.body.token).toEqual(undefined);
     })
   });
+
+  describe("PATCH, updating with a 'comment'", () => {
+    let post;
+  
+    beforeEach(async ()=>{
+      post = new Post({message: "howdy!", userId: user._id});
+      await post.save();
+    });
+    
+      test("responds with a 201 when token is present", async () => {
+        let response = await request(app)
+          .patch("/posts")
+          .set("Authorization", `Bearer ${token}`)
+          .send({ postId: post._id, comment: {userId: "747483434", content: "what a great post!"}});
+        expect(response.status).toEqual(201);
+      });
+    
+      test("updates a post with a comment when token is present", async () => {
+        await request(app)
+          .patch("/posts")
+          .set("Authorization", `Bearer ${token}`)
+          .send({ postId: post._id, comment: {userId: "747483434", content: "what a great post!"}});
+        let posts = await Post.find();
+        expect(posts.slice(-1)[0].comments.toObject()[0].userId).toEqual("747483434");
+        expect(posts.slice(-1)[0].comments.toObject()[0].content).toEqual("what a great post!");
+
+      });
+    });
 });
