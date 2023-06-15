@@ -62,8 +62,8 @@ describe("Profile", () => {
         statusCode: 200,
         body: {
           posts: [
-            { _id: 1, newPost: "my post 1", userId: 123 },
-            { _id: 2, newPost: "Test post shouldnt show", userId: 456 },
+            { _id: 1, content: "my post 1", userId: 123 },
+            { _id: 2, content: "Test post shouldnt show", userId: 456 },
           ],
         },
       });
