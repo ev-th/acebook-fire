@@ -9,19 +9,19 @@ const userPageUrl = `/user/${post.userName}`;
 const [showComments, setShowComments] = useState(false);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
 const [userID, setUserID] = useState("");
-const [commentsArr, setCommentsArr] = useState([{comment: "1st Comment"}, {comment: "2nd Comment"}, {comment: "3rd Comment"}])
+// const [commentsArr, setCommentsArr] = useState(post.comments)
+
 const [likes, setLikes] =useState(post.likes);
-const [isLiked, setIsLiked] = useState(false);
+// const [isLiked, setIsLiked] = useState(false);
 
 
   useEffect(() => {
     if(token) {
       setUserID(jwtDecode(token).user_id);
-      //fetchLikes();
     } else {
-     // navigate('/login')
+     navigate('/login')
     }
-  }, [likes])
+  }, [])
 
 
 // const handleLike = () => {
@@ -50,32 +50,35 @@ const handleLike = async () => {
 
 }
 
-
-
-  // if (!isLiked) {
-  //   setLikes((prevLikes) => prevLikes + 1);
-  //   setIsLiked(true);
-    //console.log(Array.isArray(post.likes));
-    //console.log(setIsLiked);
-//   } else {
-//     setLikes((prevLikes) => prevLikes - 1);
-//     setIsLiked(false);
-//   }
-// };
-
-
-
-
 const toggleComments = () => {
   setShowComments(!showComments);
 }
 
 
-const addComment = (event) => {
+const addComment = async (event) => {
   event.preventDefault();
     const comment = event.target.elements.comment.value;
-    setCommentsArr((prevComments) => [...prevComments, { comment }]);
-    event.target.reset();
+    const token1 = jwtDecode(token).user_id
+  console.log(token1)
+  console.log(post)
+
+  const response = await fetch( '/posts', {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      postId: post._id,
+      comment: comment
+    })
+  })
+  const data = await response.json()
+  window.localStorage.setItem("token", data.token);
+  setToken(window.localStorage.getItem("token"));
+  post.comments = data.post.comments
+  event.target.reset()
+  
 }
 
 return (
@@ -90,7 +93,7 @@ return (
 
     <div className="likes-toggle">
     <button onClick={handleLike} >
-        {isLiked ? 'Liked' : 'Like'}
+      Like
       </button>
       <p>Likes: {likes.length}</p>
     </div>
@@ -105,14 +108,14 @@ return (
       <input placeholder="comment" id="comment" name="comment" type="text" />
       
       <button id="submit" type="submit" >Submit</button>
-      {console.log(commentsArr)}
+      {console.log(post.comments)}
     </form>
 
   {showComments && (
     <div className="comments" data-cy="comments" key={post._id}>
 
         <div className="comment-list">
-          {commentsArr.slice().reverse().map((comment) => {
+          {post.comments.slice().reverse().map((comment) => {
             return <CommentList comment={comment} />;
           })}
         </div>
