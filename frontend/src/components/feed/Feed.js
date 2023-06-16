@@ -9,7 +9,7 @@ import './Feed.css';
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [newPost, setNewPost] = useState("");
+  const [content, setContent] = useState("");
   const [userID, setUserID] = useState("");
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Feed = ({ navigate }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        newPost: newPost,
+        content: content,
         userId: userID
       })
     })
@@ -55,7 +55,7 @@ const Feed = ({ navigate }) => {
     if(token) {
       const response = await saveNewPost();
       if(response.status === 201) {
-        setNewPost("")
+        setContent("")
         fetchPosts();
       }
     } else {
@@ -64,24 +64,17 @@ const Feed = ({ navigate }) => {
   }
   
   const handlePostChange = (event) => {
-    setNewPost(event.target.value)
-  }
-
-  const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
+    setContent(event.target.value)
   }
   
   if(token) {
     return(
       <>
         <Navbar navigate={ navigate }/>
-        <h2>Posts</h2>
+        <h2 id="posts-header">Posts</h2>
         
-        <button onClick={ logout }>Logout</button>
-
-        <form onSubmit={handleSubmitPost}>
-          <input placeholder="post" id="post" type='text' value={ newPost } onChange={handlePostChange} />
+        <form id="postForm" onSubmit={handleSubmitPost}>
+          <textarea rows="5" cols="40" placeholder="...add a new post here!" id="post" type='text' value={ content } onChange={handlePostChange} />
           <input id='submit' type="submit" value="Submit" />
         </form>
 

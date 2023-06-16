@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Post from "../post/Post";
+import './Profile.css';
+
 
 const Profile = ({ navigate, params }) => {
   const { username } = params();
@@ -48,20 +50,14 @@ const Profile = ({ navigate, params }) => {
     setPosts(data.posts);
   };
 
-  const logout = () => {
-    window.localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   if (token) {
     return (
       <>
         <Navbar navigate={ navigate }/>
-        <div data-cy="profile">
-          <button onClick={logout}>Logout</button>
+        <div id="profile" data-cy="profile">
           <h2>Profile Page</h2>
-          <h3>Name: {`${firstName} ${lastName}`}</h3>
-          <h3>username: {userName}</h3>
+          <h3>{`${firstName} ${lastName}`} (@{userName})</h3>
         </div>
 
         <div data-cy="post" id="feed" role="feed">

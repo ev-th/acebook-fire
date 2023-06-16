@@ -12,7 +12,7 @@ const UsersController = {
 
       if (existingUser) {
         // Email already exists, return an error message
-        return res.status(402).json({ message: 'userName already in use' });
+        return res.status(402).json({ message: 'username already in use' });
       }
 
     // Check if the email already exists in the database

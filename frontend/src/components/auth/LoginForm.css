@@ -1,0 +1,13 @@
+#loginForm {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#loginForm input {
+    display: block;
+    width: 50%;
+    padding: 10px;
+  }
