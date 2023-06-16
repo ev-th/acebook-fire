@@ -41,7 +41,8 @@ const UploadWidget = ({ username }) => {
       function (error, result) {
         if (!error && result && result.event === "success") {
           console.log(result.info.secure_url);
-          setImageURL(result.info.secure_url);
+          setSavedImageUrl(result.info.secure_url);
+          saveImageUrl();
         }
       }
     );
@@ -67,7 +68,7 @@ const UploadWidget = ({ username }) => {
         },
         body: JSON.stringify({
           userId: userId,
-          imageUrl: imageUrl,
+          imageUrl: savedImageUrl,
         }),
       });
       if (response.ok) {
