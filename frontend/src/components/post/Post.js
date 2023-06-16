@@ -10,8 +10,7 @@ const [showComments, setShowComments] = useState(false);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
 // const [userID, setUserID] = useState("");
 // const [commentsArr, setCommentsArr] = useState(post.comments)
-
-const [likes, setLikes] =useState(post.likes);
+// const [likes, setLikes] =useState(post.likes);
 // const [isLiked, setIsLiked] = useState(false);
 
 
@@ -28,7 +27,6 @@ const [likes, setLikes] =useState(post.likes);
 
 const handleLike = async () => {
  const token1 = jwtDecode(token).user_id
-  console.log(token1)
   console.log(post)
 
   const response = await fetch( '/posts', {
@@ -45,7 +43,7 @@ const handleLike = async () => {
   const data = await response.json()
   window.localStorage.setItem("token", data.token);
   setToken(window.localStorage.getItem("token"));
-  setLikes(data.post.likes)
+  post.likes = data.post.likes
   console.log(data);
 
 }
@@ -95,7 +93,7 @@ return (
     <button onClick={handleLike} >
       Like
       </button>
-      <p>Likes: {likes.length}</p>
+      <p>Likes: {post.likes.length}</p>
     </div>
 
     <div className="comments-toggle">
@@ -108,7 +106,6 @@ return (
       <input placeholder="comment" id="comment" name="comment" type="text" />
       
       <button id="submit" type="submit" >Submit</button>
-      {console.log(post.comments)}
     </form>
 
   {showComments && (
