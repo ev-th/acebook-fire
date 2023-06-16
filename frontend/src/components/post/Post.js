@@ -8,7 +8,7 @@ const Post = ({post, navigate}) => {
 const userPageUrl = `/user/${post.userName}`;
 const [showComments, setShowComments] = useState(false);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
-const [userID, setUserID] = useState("");
+//const [userID, setUserID] = useState("");
 // const [commentsArr, setCommentsArr] = useState(post.comments)
 
 const [likes, setLikes] =useState(post.likes);
@@ -17,7 +17,7 @@ const [likes, setLikes] =useState(post.likes);
 
   useEffect(() => {
     if(token) {
-      setUserID(jwtDecode(token).user_id);
+      //setUserID(jwtDecode(token).user_id);
     } else {
      navigate('/login')
     }
@@ -103,13 +103,6 @@ return (
 
     </div>
 
-    <form className="comment-form" onSubmit={(event) =>{ addComment(event)}}>
-      <input placeholder="comment" id="comment" name="comment" type="text" />
-      
-      <button id="submit" type="submit" >Submit</button>
-      {console.log(post.comments)}
-    </form>
-
 
     <div className="comments-section">
       <div className="comments-toggle">
@@ -122,7 +115,6 @@ return (
         <input placeholder="comment" id="comment" name="comment" type="text" />
         
         <button id="submit" type="submit" >Submit</button>
-        {console.log(commentsArr)}
       </form>
     </div>
 
