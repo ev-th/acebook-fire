@@ -2,14 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import jwtDecode from 'jwt-decode';
 
 const UploadWidget = ({ username }) => {
-  // const { username } = params();
 
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const userId = jwtDecode(token).user_id;
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [imageUrl, setImageURL] = useState("https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png");
-  const [imageSaved, setImageSaved] = useState(false);
+  // const [imageSaved, setImageSaved] = useState(false);
   const [savedImageUrl, setSavedImageUrl] = useState("");
 
 
@@ -73,7 +72,7 @@ const UploadWidget = ({ username }) => {
       });
       if (response.ok) {
         console.log("URL saved in the database");
-        setImageSaved(true);
+        // setImageSaved(true);
       } else {
         console.log("Error saving URL in the database");
       }
@@ -91,7 +90,7 @@ const UploadWidget = ({ username }) => {
   return (
     <div>
       <button onClick={openWidget}>Upload Image</button>
-      {imageSaved ? <img src={savedImageUrl} alt="" /> : <img src={imageUrl} alt="" />}
+      {savedImageUrl !== imageUrl && savedImageUrl !== null  ? <img src={savedImageUrl} alt="" /> : <img src={imageUrl} alt="" />}
     </div>
   );
 };
