@@ -13,7 +13,7 @@ const UploadWidget = ({ username }) => {
 
 
   useEffect(() => {
-    console.log({username})
+    // console.log({username})
     if (token) {
      fetch(`/user?username=${username}`, {
             headers: {
@@ -25,7 +25,7 @@ const UploadWidget = ({ username }) => {
               window.localStorage.setItem("token", data.token);
               setToken(window.localStorage.getItem("token"));
               setSavedImageUrl(data.user.imageUrl);
-              console.log(data.user.imageUrl)
+              // console.log(data.user.imageUrl)
             })
         }
 
@@ -40,11 +40,12 @@ const UploadWidget = ({ username }) => {
       },
       function (error, result) {
         if (!error && result && result.event === "success") {
-          console.log(result.info.secure_url);
+          // console.log(result.info.secure_url);
           setSavedImageUrl(result.info.secure_url);
           saveImageUrl();
         }
       }
+
     );
   }, []);
 
@@ -84,7 +85,7 @@ const UploadWidget = ({ username }) => {
 
 
 
-  console.log(imageUrl);
+  // console.log(imageUrl);
 
   
 
