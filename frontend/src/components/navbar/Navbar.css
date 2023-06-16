@@ -12,15 +12,19 @@
     justify-content: space-between;
   }
 
-.navbar h1, a {
+.navbar h1, span {
     color: white;
 }
 
-.navbar a:hover {
+.navbar span:hover {
     color: rgb(247, 125, 125);
     cursor: pointer;
 }
 
-.navbar a+a {
+.navbar span+span {
     margin-left: 1rem;
   }
+
+.nav-link {
+  color: white;
+}

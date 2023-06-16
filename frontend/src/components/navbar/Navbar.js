@@ -37,9 +37,9 @@ const Navbar = ({navigate}) => {
             <nav data-cy="navbar" className="navbar">
                 <h1>Acebook</h1>
                 <div className="navbar-list">
-                    <a onClick={ myPage }>My Page</a>
-                    <Link to="/posts">Posts</Link>
-                    <a onClick={ logout }>Logout</a>
+                    <span onClick={ myPage }>My Page</span>
+                    <span><Link to="/posts" className="nav-link">Posts</Link></span>
+                    <span onClick={ logout }>Logout</span>
                 </div>
             </nav>
         )
@@ -48,8 +48,8 @@ const Navbar = ({navigate}) => {
             <nav data-cy="navbar" className="navbar">
                 <h1>Acebook</h1>
                 <div className="navbar-list">
-                    <Link to="/login">Login</Link>
-                    <Link to="/signup">Sign Up</Link>
+                    <span><Link to="/login" className="nav-link">Login</Link></span>
+                    <span><Link to="/signup" className="nav-link">Sign Up</Link></span>
                 </div>
             </nav>
         )
