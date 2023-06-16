@@ -7,24 +7,22 @@ const UploadWidget = ({ username }) => {
   const userId = jwtDecode(token).user_id;
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-  const [imageUrl, setImageURL] = useState("https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png");
-  // const [imageSaved, setImageSaved] = useState(false);
-  const [savedImageUrl, setSavedImageUrl] = useState("");
-
+  const defaultImage = "https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png"
+  const [userImageUrl, setUserImageUrl] = useState("");
 
   useEffect(() => {
     // console.log({username})
     if (token) {
      fetch(`/user?username=${username}`, {
             headers: {
-              Authorization: `Bearer ${token}`
+              "Authorization": `Bearer ${token}`
             }
           })
             .then((response) => response.json())
             .then((data) => {
               window.localStorage.setItem("token", data.token);
               setToken(window.localStorage.getItem("token"));
-              setSavedImageUrl(data.user.imageUrl);
+              setUserImageUrl(data.user.imageUrl);
               // console.log(data.user.imageUrl)
             })
         }
@@ -41,8 +39,7 @@ const UploadWidget = ({ username }) => {
       function (error, result) {
         if (!error && result && result.event === "success") {
           // console.log(result.info.secure_url);
-          setSavedImageUrl(result.info.secure_url);
-          saveImageUrl();
+          setUserImageUrl(result.info.secure_url);
         }
       }
 
@@ -50,10 +47,10 @@ const UploadWidget = ({ username }) => {
   }, []);
 
   useEffect(() => {
-    if (imageUrl !== "https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png") {
+    if (userImageUrl) {
       saveImageUrl();
     }
-  }, [imageUrl]);
+  }, [userImageUrl]);
 
   const openWidget = () => {
     widgetRef.current.open();
@@ -65,11 +62,11 @@ const UploadWidget = ({ username }) => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({
           userId: userId,
-          imageUrl: savedImageUrl,
+          imageUrl: userImageUrl,
         }),
       });
       if (response.ok) {
@@ -92,7 +89,7 @@ const UploadWidget = ({ username }) => {
   return (
     <div>
       <button onClick={openWidget}>Upload Image</button>
-      {savedImageUrl !== imageUrl && savedImageUrl !== null  ? <img src={savedImageUrl} alt="" /> : <img src={imageUrl} alt="" />}
+      {userImageUrl !== defaultImage && userImageUrl !== null  ? <img src={userImageUrl} alt="" /> : <img src={defaultImage} alt="" />}
     </div>
   );
 };

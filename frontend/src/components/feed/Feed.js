@@ -4,8 +4,6 @@ import Navbar from '../navbar/Navbar'
 import jwtDecode from 'jwt-decode';
 import './Feed.css';
 
-
-
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
