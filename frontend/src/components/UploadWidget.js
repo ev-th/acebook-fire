@@ -86,10 +86,21 @@ const UploadWidget = ({ username }) => {
 
   
 
+  // return (
+  //   <div>
+  //     <button onClick={openWidget}>Upload Image</button>
+  //     {userImageUrl !== "" && userImageUrl !== null  ? <img src={userImageUrl} alt="" /> : <img src={defaultImage} alt="" />}
+  //   </div>
+  // );
+
   return (
     <div>
       <button onClick={openWidget}>Upload Image</button>
-      {userImageUrl !== defaultImage && userImageUrl !== null  ? <img src={userImageUrl} alt="" /> : <img src={defaultImage} alt="" />}
+      {userImageUrl !== "" && userImageUrl !== null ? (
+        <img src={userImageUrl} alt="" />
+      ) : (
+        <img src={defaultImage} alt="" />
+      )}
     </div>
   );
 };
