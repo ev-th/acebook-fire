@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import jwtDecode from 'jwt-decode';
 
 const UploadWidget = ({ username }) => {
+  // const { username } = params();
+
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const userId = jwtDecode(token).user_id;
   const cloudinaryRef = useRef();
@@ -9,6 +11,26 @@ const UploadWidget = ({ username }) => {
   const [imageUrl, setImageURL] = useState("https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png");
   const [imageSaved, setImageSaved] = useState(false);
   const [savedImageUrl, setSavedImageUrl] = useState("");
+
+
+  useEffect(() => {
+    console.log({username})
+    if (token) {
+     fetch(`/user?username=${username}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              window.localStorage.setItem("token", data.token);
+              setToken(window.localStorage.getItem("token"));
+              setSavedImageUrl(data.user.imageUrl);
+              console.log(data.user.imageUrl)
+            })
+        }
+
+  }, []);
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -60,26 +82,11 @@ const UploadWidget = ({ username }) => {
     }
   };
 
-  const displaySavedImage = async () => {
-    try {
-      const response = await fetch(`/user?username=${username}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      const data = await response.json();
-      setSavedImageUrl(data.imageUrl);
-      console.log(data.imageUrl);
-    } catch (error) {
-      console.log("Error fetching saved image URL", error);
-    }
-  };
+
 
   console.log(imageUrl);
 
-  useEffect(() => {
-    displaySavedImage();
-  }, []);
+  
 
   return (
     <div>
