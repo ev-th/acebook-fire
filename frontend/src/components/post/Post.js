@@ -8,7 +8,7 @@ const Post = ({post, navigate}) => {
 const userPageUrl = `/user/${post.userName}`;
 const [showComments, setShowComments] = useState(false);
 const [token, setToken] = useState(window.localStorage.getItem("token"));
-const [userID, setUserID] = useState("");
+// const [userID, setUserID] = useState("");
 // const [commentsArr, setCommentsArr] = useState(post.comments)
 
 const [likes, setLikes] =useState(post.likes);
@@ -17,7 +17,7 @@ const [likes, setLikes] =useState(post.likes);
 
   useEffect(() => {
     if(token) {
-      setUserID(jwtDecode(token).user_id);
+      // setUserID(jwtDecode(token).user_id);
     } else {
      navigate('/login')
     }

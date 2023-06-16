@@ -10,8 +10,8 @@ describe("Feed", () => {
         req.reply({
           statusCode: 200,
           body: { posts: [
-            {_id: 1, content: "Hello, world"},
-            {_id: 2, content: "Hello again, world"}
+            {_id: 1, content: "Hello, world", likes: []},
+            {_id: 2, content: "Hello again, world", likes:[]}
           ] }
         })
       }
@@ -37,8 +37,8 @@ describe("Feed", () => {
         req.reply({
           statusCode: 200,
           body: { posts: [
-            {_id: 1, content: "Hello, world"},
-            {_id: 2, content: "Hello again, world"}
+            {_id: 1, content: "Hello, world", likes: []},
+            {_id: 2, content: "Hello again, world", likes: []}
           ] }
         })
       }
