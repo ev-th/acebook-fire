@@ -17,7 +17,7 @@ const UploadWidget = ({ username }) => {
     if (token) {
      fetch(`/user?username=${username}`, {
             headers: {
-              'Authorization': `Bearer ${token}`
+              Authorization: `Bearer ${token}`
             }
           })
             .then((response) => response.json())
