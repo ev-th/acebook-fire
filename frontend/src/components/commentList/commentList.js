@@ -6,7 +6,7 @@ import './commentList.css';
     return(
       <div className="comment" data-cy="comment" key={ comment._id }>
         <div>
-          { <p className="comment"> {comment.comment}</p> }
+          { <p className="comment"> {comment}</p> }
         </div>
         </div>
     )

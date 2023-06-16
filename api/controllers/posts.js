@@ -44,12 +44,14 @@ const PostsController = {
     });
   },
   Update: (req, res) => {
+    console.log('test');
     const postId = req.body.postId;
     const like = req.body.like;
     const comment = req.body.comment;
 
     Post.findById(postId, (err, post) => {
       if (err) {
+        
         throw err;
       }
 
@@ -67,7 +69,7 @@ const PostsController = {
         }
 
         const token = await TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(201).json({ message: "OK", token: token});
+        res.status(201).json({ message: "OK", token: token, post: post });
       });
     })
   }
