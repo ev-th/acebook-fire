@@ -96,7 +96,7 @@ const UploadWidget = ({ username }) => {
   return (
     <div>
       <button onClick={openWidget}>Upload Image</button>
-      {userImageUrl !== "" && userImageUrl !== null ? (
+      {userImageUrl !== "" && userImageUrl !== undefined ? (
         <img src={userImageUrl} alt="" />
       ) : (
         <img src={defaultImage} alt="" />
@@ -106,4 +106,3 @@ const UploadWidget = ({ username }) => {
 };
 
 export default UploadWidget;
-
