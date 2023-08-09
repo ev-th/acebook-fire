@@ -16,6 +16,12 @@ Team Fire built the following capabilities:
 
 - (put features added here)
 
+## Code design diagrams
+
+The team used Excalidraw to map out the pre-existing code base as a learning and development tool.
+[Diagram of the backend api](./images/backend-diagram.png)
+[Diagram of the frontend ](./images/frontend-diagram.png)
+
 ## Technologies used
 
 - [MongoDB](https://www.mongodb.com/) _NoSQL_ database to store user and posts data
@@ -24,10 +30,10 @@ Team Fire built the following capabilities:
 - [Node](https://nodejs.org/en/) allows Javascript to run outside the browser
 - [Jest](https://jestjs.io/) for unit testing on the back end
 - [Cypress](https://www.cypress.io/) for end-to-end testing and component testing, on the front end
-- [Mongoose](https://mongoosejs.com) to model objects in MongoDB.
-- [Handlebars](https://handlebarsjs.com/) for the `home` template.
-- [ESLint](https://eslint.org) for linting.
-- [Nodemon](https://nodemon.io/) to reload the server automatically.
+- [Mongoose](https://mongoosejs.com) to model objects in MongoDB
+- [Handlebars](https://handlebarsjs.com/) for the `home` template
+- [ESLint](https://eslint.org) for linting
+- [Nodemon](https://nodemon.io/) to reload the server automatically
 
 ### How to run the project
 
