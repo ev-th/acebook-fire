@@ -18,9 +18,10 @@ Team Fire built the following capabilities:
 
 ## Code design diagrams
 
-The team used Excalidraw to map out the pre-existing code base as a learning and development tool.
-[Diagram of the backend api](./images/backend-diagram.png)
-[Diagram of the frontend ](./images/frontend-diagram.png)
+The team used Excalidraw to map out the pre-existing code base as a learning and development tool:
+[Diagram of the backend api](./diagrams/backend-diagram.png)
+
+[Diagram of the frontend ](./diagrams/frontend-diagram.png)
 
 ## Technologies used
 
