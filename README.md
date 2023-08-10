@@ -12,9 +12,17 @@ It was already possible for a user to:
 
 ## Features added
 
-Team Fire built the following capabilities:
+Team Fire bdeveloped the following functionalities:
 
-- (put features added here)
+- Creating posts
+- Commenting on posts
+- Liking posts
+- Login error alerts
+- Ensuring email uniqueness
+- Encrypting passwords
+- User profile page
+- Navigation bar (navbar)
+- Adding a profile picture (feature currently in a testing branch)
 
 ## Design Documents
 
@@ -25,7 +33,7 @@ The team used Excalidraw to map out the pre-existing code base as a learning and
 
 The final frontend design with posts and comments:
 ![posts screenshot](./diagrams/posts-screenshot.png)
-![comments screenshot](.diagrams/comments-screenshot.png)
+![comments screenshot](./diagrams/comments-screenshot.png)
 
 ## Technologies used
 
