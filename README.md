@@ -26,7 +26,7 @@ Team Fire developed the following functionalities:
 
 ## Design Documents
 
-The team used Excalidraw to map out the pre-existing code base as a learning and development tool and create wireframe mockups of the planned frontend routes:
+The team used Excalidraw to map out the pre-existing code base as a learning and development tool and create wireframe mockups of the planned frontend routes:\
 [Diagram of the backend](./diagrams/backend-diagram.png)\
 [Diagram of the frontend ](./diagrams/frontend-diagram.png)\
 [Wireframe mockups](.diagrams/wireframes.png)
