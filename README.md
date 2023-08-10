@@ -16,12 +16,16 @@ Team Fire built the following capabilities:
 
 - (put features added here)
 
-## Code design diagrams
+## Design Documents
 
-The team used Excalidraw to map out the pre-existing code base as a learning and development tool:
-[Diagram of the backend api](./diagrams/backend-diagram.png)
-
+The team used Excalidraw to map out the pre-existing code base as a learning and development tool and create wireframe mockups of the planned frontend routes:
+[Diagram of the backend](./diagrams/backend-diagram.png)
 [Diagram of the frontend ](./diagrams/frontend-diagram.png)
+[Wireframe mockups](.diagrams/wireframes.png)
+
+The final frontend design with posts and comments:
+![posts screenshot](./diagrams/posts-screenshot.png)
+![comments screenshot](.diagrams/comments-screenshot.png)
 
 ## Technologies used
 
@@ -32,7 +36,6 @@ The team used Excalidraw to map out the pre-existing code base as a learning and
 - [Jest](https://jestjs.io/) for unit testing on the back end
 - [Cypress](https://www.cypress.io/) for end-to-end testing and component testing, on the front end
 - [Mongoose](https://mongoosejs.com) to model objects in MongoDB
-- [Handlebars](https://handlebarsjs.com/) for the `home` template
 - [ESLint](https://eslint.org) for linting
 - [Nodemon](https://nodemon.io/) to reload the server automatically
 
@@ -46,7 +49,7 @@ Start the server
 ; JWT_SECRET=SUPER_SECRET npm run start
 ```
 
-    Then start the front end in a new terminal session
+Then start the front end in a new terminal session
 
 ```
 ; cd frontend
