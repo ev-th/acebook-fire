@@ -12,7 +12,7 @@ It was already possible for a user to:
 
 ## Features added
 
-Team Fire bdeveloped the following functionalities:
+Team Fire developed the following functionalities:
 
 - Creating posts
 - Commenting on posts
@@ -27,8 +27,8 @@ Team Fire bdeveloped the following functionalities:
 ## Design Documents
 
 The team used Excalidraw to map out the pre-existing code base as a learning and development tool and create wireframe mockups of the planned frontend routes:
-[Diagram of the backend](./diagrams/backend-diagram.png)
-[Diagram of the frontend ](./diagrams/frontend-diagram.png)
+[Diagram of the backend](./diagrams/backend-diagram.png)\
+[Diagram of the frontend ](./diagrams/frontend-diagram.png)\
 [Wireframe mockups](.diagrams/wireframes.png)
 
 The final frontend design with posts and comments:
