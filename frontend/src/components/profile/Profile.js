@@ -68,7 +68,7 @@ const Profile = ({ navigate, params }) => {
             .reverse()
             .filter((post) => post.userId === profileID)
             .map((post) => {
-              return <Post post={post} />;
+              return <Post post={post} showImage={false}/>;
             })}
         </div>
       </>

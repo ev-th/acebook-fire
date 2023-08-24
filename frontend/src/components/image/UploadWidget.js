@@ -8,7 +8,7 @@ const UploadWidget = ({ username }) => {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const defaultImage =
-    "https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png";
+    "https://www.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=mp";
   const [userImageUrl, setUserImageUrl] = useState("");
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const UploadWidget = ({ username }) => {
         .then((data) => {
           window.localStorage.setItem("token", data.token);
           setToken(window.localStorage.getItem("token"));
-          setUserImageUrl(data.user.imageUrl);
+          setUserImageUrl(data.user.imageUrl || defaultImage);
           // console.log(data.user.imageUrl)
         });
     }
