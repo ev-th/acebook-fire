@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import jwtDecode from 'jwt-decode';
+import "./UploadWidget.css";
 
 const UploadWidget = ({ username }) => {
 
@@ -13,7 +14,7 @@ const UploadWidget = ({ username }) => {
   useEffect(() => {
     // console.log({username})
     if (token) {
-     fetch(`/user?username=${username}`, {
+      fetch(`/user?username=${username}`, {
             headers: {
               "Authorization": `Bearer ${token}`
             }
@@ -94,15 +95,28 @@ const UploadWidget = ({ username }) => {
   // );
 
   return (
-    <div>
-      <button onClick={openWidget}>Upload Image</button>
-      {userImageUrl !== "" && userImageUrl !== undefined ? (
-        <img src={userImageUrl} alt="" />
-      ) : (
-        <img src={defaultImage} alt="" />
-      )}
+    <div id="container">
+      <div id="image">
+        {userImageUrl !== "" && userImageUrl !== null ? (
+          <img
+            src={userImageUrl}
+            alt=""
+            style={{ maxWidth: "600px", maxHeight: "400px" }}
+          />
+        ) : (
+          <img
+            src={defaultImage}
+            alt=""
+            style={{ maxWidth: "600px", maxHeight: "400px" }}
+          />
+        )}
+      </div>
+      <div id="button">
+        <button onClick={openWidget}>Upload Image</button>
+      </div>
     </div>
   );
 };
 
 export default UploadWidget;
+

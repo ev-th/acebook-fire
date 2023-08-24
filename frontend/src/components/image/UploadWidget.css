@@ -1,0 +1,10 @@
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#image {
+    max-width: 600px;
+    max-height: 400px;
+    padding: 20px;
+}

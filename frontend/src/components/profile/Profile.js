@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Post from "../post/Post";
 // import CloudinaryUploadWidget from "./CloudinaryUploadWidget"; 
-import UploadWidget from "../UploadWidget";
+import UploadWidget from "../image/UploadWidget";
 
 const Profile = ({ navigate, params }) => {
   const { username } = params();
@@ -59,14 +59,14 @@ const Profile = ({ navigate, params }) => {
     return (
       <>
         <Navbar navigate={ navigate }/>
-
-        <UploadWidget username={username} />
-
+        
         <div data-cy="profile">
           <h2>Profile Page</h2>
           <h3>Name: {`${firstName} ${lastName}`}</h3>
           <h3>username: {userName}</h3>
         </div>
+
+        <UploadWidget username={username} />
 
         <div data-cy="post" id="feed" role="feed">
           {posts
