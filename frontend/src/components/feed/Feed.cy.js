@@ -10,8 +10,8 @@ describe("Feed", () => {
         req.reply({
           statusCode: 200,
           body: { posts: [
-            {_id: 1, newPost: "Hello, world"},
-            {_id: 2, newPost: "Hello again, world"}
+            {_id: 1, content: "Hello, world", likes: []},
+            {_id: 2, content: "Hello again, world", likes: []},
           ] }
         })
       }
@@ -37,8 +37,8 @@ describe("Feed", () => {
         req.reply({
           statusCode: 200,
           body: { posts: [
-            {_id: 1, newPost: "Hello, world"},
-            {_id: 2, newPost: "Hello again, world"}
+            {_id: 1, content: "Hello, world", likes: []},
+            {_id: 2, content: "Hello again, world",likes: []}
           ] }
         })
       }
@@ -69,7 +69,7 @@ describe("Feed", () => {
     cy.intercept('POST', '/posts', {
       statusCode: 201,
       body: {
-        newPost: 'my new post',
+        content: 'my new post',
       },
     }).as('postRequest')
     
@@ -78,7 +78,7 @@ describe("Feed", () => {
     
     cy.wait('@postRequest').then((interception) => {
       expect(interception.response.statusCode).to.eq(201)
-      expect(interception.response.body.newPost).to.eq('my new post')
+      expect(interception.response.body.content).to.eq('my new post')
     })
   })
   
@@ -93,7 +93,7 @@ describe("Feed", () => {
     cy.intercept('POST', '/posts', {
       statusCode: 201,
       body: {
-        newPost: 'my new post',
+        content: 'my new post',
       },
     }).as('postRequest')
     

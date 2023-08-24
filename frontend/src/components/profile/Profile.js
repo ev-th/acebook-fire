@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Post from "../post/Post";
-// import CloudinaryUploadWidget from "./CloudinaryUploadWidget"; 
+import './Profile.css';
 import UploadWidget from "../image/UploadWidget";
 
 const Profile = ({ navigate, params }) => {
@@ -50,20 +50,14 @@ const Profile = ({ navigate, params }) => {
     setPosts(data.posts);
   };
 
-  const logout = () => {
-    window.localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   if (token) {
     return (
       <>
         <Navbar navigate={ navigate }/>
-        
-        <div data-cy="profile">
+        <div id="profile" data-cy="profile">
           <h2>Profile Page</h2>
-          <h3>Name: {`${firstName} ${lastName}`}</h3>
-          <h3>username: {userName}</h3>
+          <h3>{`${firstName} ${lastName}`} (@{userName})</h3>
         </div>
 
         <UploadWidget username={username} />

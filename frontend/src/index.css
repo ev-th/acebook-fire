@@ -12,23 +12,18 @@ code {
     monospace;
 }
 
-form {
-  padding: 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-form input {
-  display: block;
-  width: 50%;
-  padding: 10px;
+form input , textarea, button {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 2px;
+  padding: 0 2px;
+}
+
+button {
+  cursor: pointer;
 }
 
 input[type="submit"] {
-  width: 20%;
+  cursor: pointer;
 }
+

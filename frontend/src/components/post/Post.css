@@ -3,13 +3,12 @@
     border: 1px solid rgb(213, 210, 210);
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    width: 90%;
+    width: 100%;
     padding: 10px;
-    margin: 16px;
+    margin: 16px 0;
     justify-self: center;
     display: flex;
-    align-items: center;
-    margin: 16px auto;
+    flex-direction: column;
 
 }
 
@@ -20,4 +19,112 @@
 .name:hover {
     color: rgb(245, 169, 169);
     cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.img-name-post-likes {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    align-items: start;
+    justify-items: start;
+    grid-gap: 10px;
+}
+
+#likes {
+    font-size: 13px;
+}
+
+.likes-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-self: end;
+    justify-self: end;
+  }
+  
+  .likes-toggle button {
+    font-size: 13px;
+    align-self: flex-end;
+    padding: 0 5px;
+    margin: 0;
+  }
+
+.comments-section {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-gap: 10px;
+}    
+
+.displayed-comments {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    align-items: start;
+    justify-items: start;
+    grid-gap: 10px;
+    font-size: 12px;
+}
+
+
+#comment #submit {
+    margin: auto;
+    width: 100%;
+}
+
+.comments {
+    justify-self: left;
+    align-items: left;
+}
+
+.comments-toggle {
+    width: 100%;
+    margin-top: 10px;
+    
+}
+
+.comments-toggle button {
+    padding: 2px 2px;
+    
+}
+
+.comments-toggle button {
+    font-size: 11px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+.comment-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .comment-form input {
+    margin-right: 10px;
+    flex-grow: 2;
+  }
+  
+  .comment-form button[type="submit"] {
+    font-size: 11px;
+    background-color: rgb(251, 76, 76);
+    color: white;
+    border: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+ 
+  
+.comment-list {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    align-items: left;
 }
