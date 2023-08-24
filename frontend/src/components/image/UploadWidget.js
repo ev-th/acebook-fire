@@ -1,33 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 import "./UploadWidget.css";
 
 const UploadWidget = ({ username }) => {
-
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const userId = jwtDecode(token).user_id;
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-  const defaultImage = "https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png"
+  const defaultImage =
+    "https://res.cloudinary.com/dzdwjdv7d/image/upload/v1686822446/ekcmrhibrlahw54ebw2g.png";
   const [userImageUrl, setUserImageUrl] = useState("");
 
   useEffect(() => {
     // console.log({username})
     if (token) {
       fetch(`/user?username=${username}`, {
-            headers: {
-              "Authorization": `Bearer ${token}`
-            }
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              window.localStorage.setItem("token", data.token);
-              setToken(window.localStorage.getItem("token"));
-              setUserImageUrl(data.user.imageUrl);
-              // console.log(data.user.imageUrl)
-            })
-        }
-
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.localStorage.setItem("token", data.token);
+          setToken(window.localStorage.getItem("token"));
+          setUserImageUrl(data.user.imageUrl);
+          // console.log(data.user.imageUrl)
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -40,10 +39,14 @@ const UploadWidget = ({ username }) => {
       function (error, result) {
         if (!error && result && result.event === "success") {
           // console.log(result.info.secure_url);
-          setUserImageUrl(result.info.secure_url);
+          const databaseImage = result.info.secure_url;
+          if (databaseImage !== "" || databaseImage !== undefined) {
+            setUserImageUrl(databaseImage);
+          } else {
+            setUserImageUrl(defaultImage);
+          }
         }
       }
-
     );
   }, []);
 
@@ -63,7 +66,7 @@ const UploadWidget = ({ username }) => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           userId: userId,
@@ -81,42 +84,21 @@ const UploadWidget = ({ username }) => {
     }
   };
 
-
-
-  // console.log(imageUrl);
-
-  
-
-  // return (
-  //   <div>
-  //     <button onClick={openWidget}>Upload Image</button>
-  //     {userImageUrl !== "" && userImageUrl !== null  ? <img src={userImageUrl} alt="" /> : <img src={defaultImage} alt="" />}
-  //   </div>
-  // );
-
   return (
     <div id="container">
       <div id="image">
-        {userImageUrl !== "" && userImageUrl !== null ? (
-          <img
-            src={userImageUrl}
-            alt=""
-            style={{ maxWidth: "600px", maxHeight: "400px" }}
-          />
-        ) : (
-          <img
-            src={defaultImage}
-            alt=""
-            style={{ maxWidth: "600px", maxHeight: "400px" }}
-          />
-        )}
-      </div>
-      <div id="button">
-        <button onClick={openWidget}>Upload Image</button>
+        <img
+          src={userImageUrl}
+          alt=""
+          style={{ maxWidth: "600px", maxHeight: "400px" }}
+        />
+
+        <div id="button">
+          <button onClick={openWidget}>Upload Image</button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default UploadWidget;
-
