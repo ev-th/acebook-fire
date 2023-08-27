@@ -4,8 +4,6 @@ import Navbar from '../navbar/Navbar'
 import jwtDecode from 'jwt-decode';
 import './Feed.css';
 
-
-
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -30,6 +28,7 @@ const Feed = ({ navigate }) => {
       const data = await response.json();
       window.localStorage.setItem("token", data.token);
       setToken(window.localStorage.getItem("token"));
+      console.log(data)
       setPosts(data.posts);
       console.log(data.posts);
   }
@@ -81,7 +80,7 @@ const Feed = ({ navigate }) => {
         <div id='feed' role="feed">
           {
             posts.slice().reverse().map((post) => {
-              return <Post post={ post }/>
+              return <Post post={ post } showImage={true}/>
             })
           }
         </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Post from "../post/Post";
 import './Profile.css';
-
+import UploadWidget from "../image/UploadWidget";
 
 const Profile = ({ navigate, params }) => {
   const { username } = params();
@@ -60,13 +60,15 @@ const Profile = ({ navigate, params }) => {
           <h3>{`${firstName} ${lastName}`} (@{userName})</h3>
         </div>
 
+        <UploadWidget username={username} />
+
         <div data-cy="post" id="feed" role="feed">
           {posts
             .slice()
             .reverse()
             .filter((post) => post.userId === profileID)
             .map((post) => {
-              return <Post post={post} />;
+              return <Post post={post} showImage={false}/>;
             })}
         </div>
       </>

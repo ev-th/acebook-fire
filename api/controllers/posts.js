@@ -16,7 +16,8 @@ const PostsController = {
         $addFields: {
           userName: { $arrayElemAt: ['$user.userName', 0] },
           firstName: { $arrayElemAt: ['$user.firstName', 0] },
-          lastName: { $arrayElemAt: ['$user.lastName', 0] }
+          lastName: { $arrayElemAt: ['$user.lastName', 0] },
+          imageUrl: { $arrayElemAt: ['$user.imageUrl', 0] }
         }
       },
       {
