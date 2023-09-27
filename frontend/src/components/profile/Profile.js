@@ -12,8 +12,10 @@ const Profile = ({ navigate, params }) => {
   const [lastName, setLastName] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [posts, setPosts] = useState([]);
-  const [userID, setUserID] = useState("");
   const [profileID, setProfileID] = useState("");
+  const [image, setImage] = useState("");
+  const defaultImage =
+    "https://www.gravatar.com/avatar/00000000000000000000000000000000?s=100&d=mp";
 
   useEffect(() => {
     if (token) {
@@ -31,6 +33,7 @@ const Profile = ({ navigate, params }) => {
           setLastName(data.user.lastName);
           setUserName(data.user.userName);
           setProfileID(data.user.userId);
+          setImage(data.user.imageUrl)
         });
       fetchPosts();
     } else {
@@ -55,16 +58,16 @@ const Profile = ({ navigate, params }) => {
     return (
       <>
         <Navbar navigate={ navigate }/>
+
         <div id="profile" data-cy="profile">
           <h2>Profile Page</h2>
           <h3>{`${firstName} ${lastName}`} (@{userName})</h3>
         </div>
-
-        <UploadWidget username={username} />
+       
+        <UploadWidget image={image} />
 
         <div data-cy="post" id="feed" role="feed">
           {posts
-            .slice()
             .reverse()
             .filter((post) => post.userId === profileID)
             .map((post) => {

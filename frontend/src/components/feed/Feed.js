@@ -26,11 +26,12 @@ const Feed = ({ navigate }) => {
         }
       })
       const data = await response.json();
+  
       window.localStorage.setItem("token", data.token);
       setToken(window.localStorage.getItem("token"));
-      console.log(data)
+      // console.log(data)
       setPosts(data.posts);
-      console.log(data.posts);
+      // console.log(data.posts);
   }
 
   const saveNewPost = async () => {
@@ -80,7 +81,7 @@ const Feed = ({ navigate }) => {
         <div id='feed' role="feed">
           {
             posts.slice().reverse().map((post) => {
-              return <Post post={ post } showImage={true}/>
+              return <Post post={ post } showImage={true} key={post._id}/>
             })
           }
         </div>
