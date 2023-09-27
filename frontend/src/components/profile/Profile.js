@@ -33,7 +33,7 @@ const Profile = ({ navigate, params }) => {
           setLastName(data.user.lastName);
           setUserName(data.user.userName);
           setProfileID(data.user.userId);
-          setImage(data.user.imageUrl)
+          setImage(data.user.imageUrl || defaultImage)
         });
       fetchPosts();
     } else {
@@ -66,12 +66,12 @@ const Profile = ({ navigate, params }) => {
        
         <UploadWidget image={image} />
 
-        <div data-cy="post" id="feed" role="feed">
+        <div data-cy="post" id="feed" role="feed" >
           {posts
             .reverse()
             .filter((post) => post.userId === profileID)
             .map((post) => {
-              return <Post post={post} showImage={false}/>;
+              return <Post post={post} showImage={false} key={post._id}/>;
             })}
         </div>
       </>
