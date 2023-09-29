@@ -63,3 +63,6 @@ typings/
 # cypress.io
 frontend/cypress/screenshots
 frontend/cypress/videos
+
+# cloudinary
+cloudinary.config.js

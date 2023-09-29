@@ -12,7 +12,7 @@ const Post = ({ post, navigate, showImage }) => {
 
   const [likes, setLikes] = useState(post.likes);
   // const [isLiked, setIsLiked] = useState(false);
-
+  
   useEffect(() => {
     if (token) {
       //setUserID(jwtDecode(token).user_id);

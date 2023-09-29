@@ -24,7 +24,7 @@ const UserController = {
           firstName: user.firstName,
           lastName: user.lastName,
           userName: user.userName,
-          imageUrl: user.imageUrl
+          imageUrl: user.imageUrl,
         };
         res.status(200).json({ user: foundUser, token: token });
       }
@@ -37,7 +37,7 @@ const UserController = {
 
     try {
       const updatedUser = await User.findOneAndUpdate(
-        { _id: userId  },
+        { _id: userId },
         { imageUrl: imageUrl },
         { new: true }
       );
